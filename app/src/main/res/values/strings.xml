@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">INFO6134_Group7</string>
+    <string name="doggo">Doggo</string>
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log in ></string>
+    <string name="signup">Sign up ></string>
+    <string name="addpost">Add post</string>
+    <string name="signout">Sign out</string>
 </resources>
