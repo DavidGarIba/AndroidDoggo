@@ -1,13 +1,19 @@
 package dibanez.example.info6134_group7
 
+import android.Manifest
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.*
+import android.widget.AdapterView.OnItemSelectedListener
 
-class ThirdActivity : AppCompatActivity() {
 
+class ThirdActivity : AppCompatActivity(), OnItemSelectedListener {
+
+    //variables for data elements
     lateinit var nameET: EditText
     lateinit var genderRG: RadioGroup
 
@@ -25,6 +31,7 @@ class ThirdActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
+        //assign variables to corresponding views
         nameET = findViewById(R.id.editTextPostName)
         genderRG = findViewById(R.id.radioGroupGender)
         ageSpin = findViewById(R.id.spinnerAge)
@@ -33,6 +40,9 @@ class ThirdActivity : AppCompatActivity() {
         lengthSpin = findViewById(R.id.spinnerLength)
         weightSpin = findViewById(R.id.spinnerWeight)
 
+        nameET.addTextChangedListener(textWatcher)
+
+        //setting up the spinner adapters
         val ageSpinnerAdapter = ArrayAdapter.createFromResource(
             this,
             R.array.ageArray,
@@ -71,9 +81,81 @@ class ThirdActivity : AppCompatActivity() {
         lengthSpin.adapter = lengthSpinnerAdapter
         weightSpin.adapter = weightSpinnerAdapter
 
-
-//        ageSpin.onItemSelectedListener = this
+        ageSpin.onItemSelectedListener = this
+        breedSpin.onItemSelectedListener = this
+        heightSpin.onItemSelectedListener = this
+        lengthSpin.onItemSelectedListener = this
+        weightSpin.onItemSelectedListener = this
     }
+
+    private val textWatcher = object : TextWatcher {
+        override fun afterTextChanged(s: Editable?) {
+        }
+        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        }
+        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            SecondActivity.dogDataName = s.toString()
+        }
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        //actions for selected options in the spinner
+        when(p0?.id) {
+            R.id.spinnerAge-> {
+                if (p2 != 0) {
+                    SecondActivity.dogDataAge = ageSpin.selectedItem.toString()
+                    Toast.makeText(this, SecondActivity.dogDataAge,Toast.LENGTH_LONG).show()
+                }
+            }
+            R.id.spinnerBreed-> {
+                if (p2 != 0) {
+                    SecondActivity.dogDataBreed = breedSpin.selectedItem.toString()
+                    Toast.makeText(this, SecondActivity.dogDataBreed,Toast.LENGTH_LONG).show()
+                }
+            }
+            R.id.spinnerHeight-> {
+                if (p2 != 0) {
+                    SecondActivity.dogDataDimensions = heightSpin.selectedItem.toString() + " x " + lengthSpin.selectedItem.toString()
+                    Toast.makeText(this, SecondActivity.dogDataDimensions,Toast.LENGTH_LONG).show()
+                }
+            }
+            R.id.spinnerLength-> {
+                if (p2 != 0) {
+                    SecondActivity.dogDataDimensions = heightSpin.selectedItem.toString() + " x " + lengthSpin.selectedItem.toString()
+                    Toast.makeText(this, SecondActivity.dogDataDimensions,Toast.LENGTH_LONG).show()
+                }
+            }
+            R.id.spinnerWeight-> {
+                if (p2 != 0) {
+                    SecondActivity.dogDataWeight = weightSpin.selectedItem.toString()
+                    Toast.makeText(this, SecondActivity.dogDataWeight,Toast.LENGTH_LONG).show()
+                }
+            }
+        }
+        // you can also use this command anywhere outside of the onItemSelected
+        //       textView.setText(spinner.selectedItem.toString())
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        Toast.makeText(this, "Nothing Selected",Toast.LENGTH_LONG).show()
+    }
+
+    fun onRadioClicked(view: View) {
+        when(view.id){
+            R.id.radioButtonMale-> {
+
+                SecondActivity.dogDataGender = getString(R.string.male)
+                Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
+            }
+            R.id.radioButtonFemale-> {
+                SecondActivity.dogDataGender = getString(R.string.female)
+                Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+
 
 
 

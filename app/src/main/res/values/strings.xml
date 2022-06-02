@@ -18,6 +18,10 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="dogage">Age</string>
+    <string name="dogbreed">Breed</string>
+    <string name="dogheight">Height</string>
+    <string name="doglength">Length</string>
+    <string name="dogweight">Weight</string>
     <string name="dogdimensions">Dimensions</string>
     <string name="back">Back</string>
     <string name="service">Location Services not working</string>

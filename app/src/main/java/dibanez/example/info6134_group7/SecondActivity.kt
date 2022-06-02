@@ -16,13 +16,20 @@ interface CellClickListener{
     fun onCellClickListener(lat: Double,lon: Double)
 }
 
-
 class SecondActivity : AppCompatActivity(),CellClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerAdapter
     lateinit var viewManager: RecyclerView.LayoutManager
 
     companion object {
+        var dogDataAge: String = ""
+        var dogDataBreed: String = ""
+        var dogDataGender: String = ""
+        var dogDataDimensions: String = ""
+        var dogDataName: String = ""
+        var dogDataLat: Float = 0f
+        var dogDataLon: Float = 0f
+        var dogDataWeight: String = ""
         val dogData: MutableList<DataType> = mutableListOf<DataType>()
     }
 
