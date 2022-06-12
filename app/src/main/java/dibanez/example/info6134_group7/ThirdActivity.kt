@@ -26,6 +26,7 @@ class ThirdActivity : AppCompatActivity(), OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third)
+        println(SecondActivity.shareDogName)
     }
 
     override fun onResume() {

@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     lateinit var editTextEmail: EditText
     lateinit var editTextPass: EditText
+    companion object{
+      var userID: String = ""
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +53,11 @@ class MainActivity : AppCompatActivity() {
                         Toast.makeText(
                             baseContext, "Authentication Successful.",
                             Toast.LENGTH_SHORT).show()
+                        val user = auth.currentUser
+                         userID = user!!.uid
                         val intent = Intent(this,SecondActivity::class.java)
                         startActivity(intent)
-                        val user = auth.currentUser
+
                         // updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.
@@ -81,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         Toast.makeText(baseContext, "Email and Password were created successful.",
                             Toast.LENGTH_SHORT).show()
-                        val user = auth.currentUser
+                         //user = auth.currentUser
                         //updateUI(user)
                     } else {
                         // If sign in fails, display a message to the user.

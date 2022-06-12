@@ -1,16 +1,21 @@
 package dibanez.example.info6134_group7
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import java.util.*
+
 
 interface CellClickListener{
     fun onCellClickListener(lat: Double,lon: Double)
@@ -20,6 +25,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerAdapter
     lateinit var viewManager: RecyclerView.LayoutManager
+
+
 
     companion object {
         var dogDataAge: String = ""
@@ -31,20 +38,136 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         var dogDataLon: Float = 0f
         var dogDataWeight: String = ""
         val dogData: MutableList<DataType> = mutableListOf<DataType>()
+
+        // share selected Data from RecyclerView to ThirdActivity
+        var shareDogName: String = ""
+        var shareDogAge: String = ""
+        var shareDogGender: String = ""
+        var shareDogDataDimensions: String = ""
+        var shareLat: Double = 0.0
+        var shareLon: Double = 0.0
+
+
+        // Receive Data from ThirdActivity
+        var receiveDogName: String = "test3"
+        var receiveDogAge: String = "test5"
+        var receiveDogGender: String = "test4"
+        var receiveDogDataDimensions: String = "test4"
+        var receiveLat: Double = 41.5245
+        var receiveLon: Double = -70.6709
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
-        dogData.add(DataType("Dog1","3","female","10 cm",41.5245,-70.6709))
-        dogData.add(DataType("Dog2","3","female","10 cm",30.5245,-60.6709))
-        dogData.add(DataType("Dog3","3","female","10 cm",20.5245,-50.5245))
-        println("test1" + dogData)
+
+//        dogData.add(DataType("Dog1","3","female","10 cm",41.5245,-70.6709,false))
+//        dogData.add(DataType("Dog2","3","female","10 cm",30.5245,-60.6709,false))
+//        dogData.add(DataType("Dog3","3","female","10 cm",20.5245,-50.5245,false))
+        //println("test1" + dogData)
+
+    }
+    fun readData(){
+         dogData.clear()
+         Firebase.database.reference.child("User/${MainActivity.userID}")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (snapshot in dataSnapshot.children) {
+                        dogData.add(DataType(
+                            "${snapshot.child("name").getValue()}",
+                            "${snapshot.child("age").getValue()}",
+                            "${snapshot.child("gender").getValue()}",
+                            "${snapshot.child("dimension").getValue()}",
+                            snapshot.child("lat").getValue().toString().toDouble(),
+                            snapshot.child("lon").getValue().toString().toDouble(),
+                            snapshot.child("check").getValue().toString().toBoolean()))
+                    }
+                    recyclerView.adapter = RecyclerAdapter(dogData, this@SecondActivity)
+                    recyclerAdapter.notifyDataSetChanged()
+                }
+                override fun onCancelled(databaseError: DatabaseError) {
+                    println(databaseError)
+                }
+            })
+    }
+
+    // call from ThirdActivity
+    fun addData(){
+        var dogObject: DataType = DataType(receiveDogName, receiveDogGender, receiveDogAge,
+            receiveDogDataDimensions, receiveLat, receiveLon,check = false)
+        Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
+            .addOnSuccessListener {
+                Toast.makeText(baseContext, "Data added successfully.",
+                    Toast.LENGTH_SHORT).show()
+                readData()
+            }
+            .addOnFailureListener {
+                Toast.makeText(baseContext, "Data added failed.",
+                    Toast.LENGTH_SHORT).show()
+            }
+    }
+    // call from ThirdActivity
+    fun updateData(){
+        var dogObject: DataType = DataType(receiveDogName, receiveDogGender, receiveDogAge,
+            receiveDogDataDimensions, receiveLat, receiveLon,check = false)
+        Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
+            .addOnSuccessListener {
+                Toast.makeText(baseContext, "Data updated successfully.",
+                    Toast.LENGTH_SHORT).show()
+                readData()
+            }
+            .addOnFailureListener {
+                Toast.makeText(baseContext, "Data updated failed.",
+                    Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    fun removeData(){
+        dogData.removeAll { it.check == true }
+        recyclerView.adapter = RecyclerAdapter(dogData, this)
+        recyclerAdapter.notifyDataSetChanged()
+        println(dogData)
+
+        val Snapshot = Firebase.database.reference.child("User/${MainActivity.userID}")
+            .orderByChild("check").equalTo(true)
+
+        Snapshot.addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(snapshot: DataSnapshot, previousChild: String?) {
+                snapshot.ref.setValue(null)
+                    .addOnSuccessListener {
+                        Toast.makeText(baseContext, "Data removed successfully.",
+                            Toast.LENGTH_SHORT).show()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(baseContext, "Data removed failed.",
+                            Toast.LENGTH_SHORT).show()
+                    }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                println(snapshot)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                println(snapshot)
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                println(snapshot)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println(error)
+            }
+        })
 
     }
 
+
     override fun onResume() {
         super.onResume()
+
         viewManager = LinearLayoutManager(this)
         recyclerAdapter = RecyclerAdapter(dogData,this)  // pass in data to be displayed
         recyclerView = findViewById<RecyclerView>(R.id.RecyclerView).apply{
@@ -57,6 +180,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = RecyclerAdapter(dogData, this)
         recyclerAdapter.notifyDataSetChanged()
+        readData()
     }
 
     fun onClickSignout(view: View) {
@@ -67,19 +191,24 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         startActivity(intent)
     }
 
+
     fun deleteBtn(view: View) {
-        dogData.removeLast()
-        recyclerView.adapter = RecyclerAdapter(dogData, this)
-        recyclerAdapter.notifyDataSetChanged()
-        println(dogData)
+        removeData()
     }
 
     fun editBtn(view: View) {
-        val intent = Intent(this,ThirdActivity::class.java)
-        startActivity(intent)
+        updateData()
+        if(shareDogName != null && shareDogGender != null && shareDogAge != null && shareDogDataDimensions != null)
+        {
+            //ThirdActivity().nameET.setText("shareDogName")
+            val intent = Intent(this,ThirdActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     fun addBtn(view: View) {
+        addData()
         val intent = Intent(this,ThirdActivity::class.java)
         startActivity(intent)
     }
@@ -100,7 +229,6 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     fun backBtn(view: View) {
         val fragment = RecyclerViewFragment()
         supportFragmentManager.inTransaction { replace(R.id.fragmentContainerView, fragment) }
-        //println("test2" + dogData)
 
     }
 
