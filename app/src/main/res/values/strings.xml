@@ -23,6 +23,7 @@
     <string name="doglength">Length</string>
     <string name="dogweight">Weight</string>
     <string name="dogdimensions">Dimensions</string>
+    <string name="address">Address</string>
     <string name="back">Back</string>
     <string name="service">Location Services not working</string>
     <string name="invalid_lat_long">Invalid Latitude and Longitude</string>
