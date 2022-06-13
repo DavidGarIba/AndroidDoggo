@@ -40,7 +40,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         val dogData: MutableList<DataType> = mutableListOf<DataType>()
 
         // share selected Data from RecyclerView to ThirdActivity
-        var shareDogName: String = ""
+        var shareDogName: String = "test123"
         var shareDogAge: String = ""
         var shareDogGender: String = ""
         var shareDogDataDimensions: String = ""
@@ -49,12 +49,12 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
 
         // Receive Data from ThirdActivity
-        var receiveDogName: String = "test3"
-        var receiveDogAge: String = "test5"
-        var receiveDogGender: String = "test4"
-        var receiveDogDataDimensions: String = "test4"
-        var receiveLat: Double = 41.5245
-        var receiveLon: Double = -70.6709
+        var receiveDogName: String = ""
+        var receiveDogAge: String = ""
+        var receiveDogGender: String = ""
+        var receiveDogDataDimensions: String = ""
+        var receiveLat: Double = 0.0
+        var receiveLon: Double = 0.0
 
     }
 
@@ -197,18 +197,23 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     }
 
     fun editBtn(view: View) {
-        updateData()
+        //updateData()
         if(shareDogName != null && shareDogGender != null && shareDogAge != null && shareDogDataDimensions != null)
         {
-            //ThirdActivity().nameET.setText("shareDogName")
             val intent = Intent(this,ThirdActivity::class.java)
             startActivity(intent)
+
+           // ThirdActivity().nameET.setText("${shareDogName}")
+
+        }else{
+            Toast.makeText(baseContext, "Please Select Dog",
+                Toast.LENGTH_SHORT).show()
         }
 
     }
 
     fun addBtn(view: View) {
-        addData()
+        //addData()
         val intent = Intent(this,ThirdActivity::class.java)
         startActivity(intent)
     }
