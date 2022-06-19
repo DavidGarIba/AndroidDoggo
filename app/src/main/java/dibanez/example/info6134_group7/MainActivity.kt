@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     fun onSkipButton(view: View) {
-        val intent = Intent(this, SecondActivity:: class.java)
+        val intent = Intent(this, CreateActivity:: class.java)
         startActivity(intent)
     }
 

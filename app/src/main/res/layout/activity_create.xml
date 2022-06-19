@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateActivity">
+
+    <TextView
+        android:id="@+id/textViewPostGenderCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/doggender"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroupGenderUpdate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPostNameCreate" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupGenderUpdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textViewPostGenderCreate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPostNameCreate">
+
+        <RadioButton
+            android:id="@+id/radioButtonMaleUpdate"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="onRadioClicked"
+            android:text="@string/male"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radioButtonFemaleUpdate"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:onClick="onRadioClicked"
+            android:text="@string/female"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+    <Spinner
+        android:id="@+id/spinnerLengthCreate"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/doglength"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/spinnerHeightCreate"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerWeightCreate" />
+
+    <EditText
+        android:id="@+id/editTextPostNameCreate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="@string/dogname"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPostTitleCreate" />
+
+    <Spinner
+        android:id="@+id/spinnerWeightCreate"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/dogweight"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/spinnerAgeCreate"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBreedCreate" />
+
+    <Spinner
+        android:id="@+id/spinnerHeightCreate"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/dogheight"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerLengthCreate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerAgeCreate" />
+
+    <Button
+        android:id="@+id/buttonAddPostCreate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="@string/addpost"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextPostAddressCreate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:ems="10"
+        android:hint="@string/address"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerHeightCreate" />
+
+    <Spinner
+        android:id="@+id/spinnerBreedCreate"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/dogbreed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupGenderUpdate" />
+
+    <TextView
+        android:id="@+id/textViewPostTitleCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/newpost"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spinnerAgeCreate"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:autofillHints="@string/dogage"
+        android:contentDescription="@string/dogage"
+        android:spinnerMode="dropdown"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerWeightCreate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerBreedCreate" />
+</androidx.constraintlayout.widget.ConstraintLayout>

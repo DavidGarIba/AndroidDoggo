@@ -55,13 +55,13 @@
         android:gravity="center"
         android:text="@string/doggender"
         android:textSize="16sp"
-        app:layout_constraintEnd_toStartOf="@+id/radioGroupGender"
+        app:layout_constraintEnd_toStartOf="@+id/radioGroupGenderUpdate"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextPostName" />
 
     <RadioGroup
-        android:id="@+id/radioGroupGender"
+        android:id="@+id/radioGroupGenderUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -71,7 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/editTextPostName">
 
         <RadioButton
-            android:id="@+id/radioButtonMale"
+            android:id="@+id/radioButtonMaleUpdate"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:onClick="onRadioClicked"
@@ -79,7 +79,7 @@
             android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/radioButtonFemale"
+            android:id="@+id/radioButtonFemaleUpdate"
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:onClick="onRadioClicked"

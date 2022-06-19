@@ -1,7 +1,5 @@
 package dibanez.example.info6134_group7
 
-import android.Manifest
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -34,7 +32,7 @@ class ThirdActivity : AppCompatActivity(), OnItemSelectedListener {
 
         //assign variables to corresponding views
         nameET = findViewById(R.id.editTextPostName)
-        genderRG = findViewById(R.id.radioGroupGender)
+        genderRG = findViewById(R.id.radioGroupGenderUpdate)
         ageSpin = findViewById(R.id.spinnerAge)
         breedSpin = findViewById(R.id.spinnerBreed)
         heightSpin = findViewById(R.id.spinnerHeight)
@@ -143,12 +141,12 @@ class ThirdActivity : AppCompatActivity(), OnItemSelectedListener {
 
     fun onRadioClicked(view: View) {
         when(view.id){
-            R.id.radioButtonMale-> {
+            R.id.radioButtonMaleUpdate-> {
 
                 SecondActivity.dogDataGender = getString(R.string.male)
                 Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
             }
-            R.id.radioButtonFemale-> {
+            R.id.radioButtonFemaleUpdate-> {
                 SecondActivity.dogDataGender = getString(R.string.female)
                 Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
             }
