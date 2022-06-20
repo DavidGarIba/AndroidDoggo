@@ -1,5 +1,6 @@
 package dibanez.example.info6134_group7
 
+import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -7,12 +8,15 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import java.util.*
 
 class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
 
     //variables for data elements
     lateinit var nameETCreate: EditText
     lateinit var genderRGCreate: RadioGroup
+    lateinit var addressETCreate: EditText
+    lateinit var latLonTVCreate: TextView
 
     lateinit var ageSpinCreate: Spinner
     lateinit var breedSpinCreate: Spinner
@@ -31,6 +35,9 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         //assign variables to corresponding views
         nameETCreate = findViewById(R.id.editTextPostNameCreate)
         genderRGCreate = findViewById(R.id.radioGroupGenderUpdate)
+        addressETCreate = findViewById(R.id.editTextPostAddressCreate)
+        latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
+
         ageSpinCreate = findViewById(R.id.spinnerAgeCreate)
         breedSpinCreate = findViewById(R.id.spinnerBreedCreate)
         heightSpinCreate = findViewById(R.id.spinnerHeightCreate)
@@ -137,6 +144,13 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         Toast.makeText(this, "Nothing Selected", Toast.LENGTH_LONG).show()
     }
 
+    fun onGeocode () {
+
+        val geocode = Geocoder(this, Locale.getDefault())
+        val addList = geocode.getFromLocationName(addressETCreate.text.toString(), 1)
+        val latLon = addList.get(0).latitude.toString() + " and " + addList.get(0).longitude.toString()
+        latLonTVCreate.text = latLon
+    }
 
 
     fun onRadioClicked(view: View) {
@@ -153,5 +167,9 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
             }
         }
 
+    }
+
+    fun onAddClicked(view: View) {
+        onGeocode()
     }
 }

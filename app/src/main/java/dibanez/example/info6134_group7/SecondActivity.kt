@@ -214,7 +214,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
     fun addBtn(view: View) {
         //addData()
-        val intent = Intent(this,ThirdActivity::class.java)
+        val intent = Intent(this,CreateActivity::class.java)
         startActivity(intent)
     }
 

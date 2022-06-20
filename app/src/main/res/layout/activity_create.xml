@@ -93,6 +93,7 @@
         android:id="@+id/buttonAddPostCreate"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
+        android:onClick="onAddClicked"
         android:text="@string/addpost"
         app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -146,4 +147,13 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerBreedCreate" />
+
+    <TextView
+        android:id="@+id/textViewLatLonCreate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LatLon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPostAddressCreate" />
 </androidx.constraintlayout.widget.ConstraintLayout>
