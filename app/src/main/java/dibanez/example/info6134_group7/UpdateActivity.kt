@@ -63,11 +63,11 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         radioButtonMale = findViewById(R.id.radioButtonMaleUpdate)
         radioButtonFemale = findViewById(R.id.radioButtonFemaleUpdate)
 
-        streetETCreate = findViewById(R.id.editTextStreetCreate)
-        zipETCreate = findViewById(R.id.editTextZipCreate)
-        cityETCreate = findViewById(R.id.editTextCityCreate)
-        stateETCreate = findViewById(R.id.editTextStateCreate)
-        latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
+        streetETCreate = findViewById(R.id.editTextStreetUpdate)
+        zipETCreate = findViewById(R.id.editTextZipUpdate)
+        cityETCreate = findViewById(R.id.editTextCityUpdate)
+        stateETCreate = findViewById(R.id.editTextStateUpdate)
+       // latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
 
 
         //setting up the spinner adapters
