@@ -41,7 +41,7 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="130dp"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
                 android:text="@string/dogname"
                 android:textAlignment="center"
@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="80dp"
+                android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:text="@string/dogage"
                 android:textAlignment="center"

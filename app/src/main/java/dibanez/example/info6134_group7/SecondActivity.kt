@@ -40,7 +40,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         val dogData: MutableList<DataType> = mutableListOf<DataType>()
 
         // share selected Data from RecyclerView to ThirdActivity
-        var shareDogName: String = "test123"
+        var shareDogName: String = ""
         var shareDogAge: String = ""
         var shareDogGender: String = ""
         var shareDogDataDimensions: String = ""
@@ -81,7 +81,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
                             "${snapshot.child("dimension").getValue()}",
                             snapshot.child("lat").getValue().toString().toDouble(),
                             snapshot.child("lon").getValue().toString().toDouble(),
-                            snapshot.child("check").getValue().toString().toBoolean()))
+                            snapshot.child("check").getValue().toString().toBoolean()
+                        ))
                     }
                     recyclerView.adapter = RecyclerAdapter(dogData, this@SecondActivity)
                     recyclerAdapter.notifyDataSetChanged()
@@ -110,13 +111,12 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
     // call from ThirdActivity
     fun updateData(){
-        var dogObject: DataType = DataType(receiveDogName, receiveDogGender, receiveDogAge,
+        var dogObject: DataType = DataType(receiveDogName,receiveDogAge, receiveDogGender,
             receiveDogDataDimensions, receiveLat, receiveLon,check = false)
         Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
             .addOnSuccessListener {
-                Toast.makeText(baseContext, "Data updated successfully.",
-                    Toast.LENGTH_SHORT).show()
-                readData()
+              //  Toast.makeText(baseContext, "Data updated successfully.", Toast.LENGTH_SHORT).show()
+                //readData()
             }
             .addOnFailureListener {
                 Toast.makeText(baseContext, "Data updated failed.",
@@ -175,6 +175,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = recyclerAdapter  }
+
+       // readData()
     }
     fun RecyclerViewOnView(){
         recyclerView = findViewById<RecyclerView>(R.id.RecyclerView)
@@ -201,10 +203,15 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         //updateData()
         if(shareDogName != null && shareDogGender != null && shareDogAge != null && shareDogDataDimensions != null)
         {
-            val intent = Intent(this,ThirdActivity::class.java)
-            startActivity(intent)
+            UpdateActivity.DogName= shareDogName
+            UpdateActivity.DogAge=  shareDogAge
+            UpdateActivity.DogGender= shareDogGender
+            UpdateActivity.DogDataDimensions= shareDogDataDimensions
+            UpdateActivity.DogLat = shareLat
+            UpdateActivity.DogLon= shareLon
 
-           // ThirdActivity().nameET.setText("${shareDogName}")
+            val intent = Intent(this,UpdateActivity::class.java)
+            startActivity(intent)
 
         }else{
             Toast.makeText(baseContext, "Please Select Dog",

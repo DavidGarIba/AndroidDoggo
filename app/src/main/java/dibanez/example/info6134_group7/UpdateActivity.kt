@@ -1,18 +1,17 @@
 package dibanez.example.info6134_group7
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.appcompat.app.AppCompatActivity
 
 
-class UpdateActivity : AppCompatActivity(), OnItemSelectedListener {
+class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
 
     //variables for data elements
-    lateinit var nameETUpdate: EditText
+    lateinit var nameETUpdate: TextView
     lateinit var genderRGUpdate: RadioGroup
 
     lateinit var ageSpinUpdate: Spinner
@@ -20,14 +19,31 @@ class UpdateActivity : AppCompatActivity(), OnItemSelectedListener {
     lateinit var heightSpinUpdate: Spinner
     lateinit var lengthSpinUpdate: Spinner
     lateinit var weightSpinUpdate: Spinner
+    lateinit var radioButtonMale: RadioButton
+    lateinit var radioButtonFemale: RadioButton
+    companion object{
+        var DogName: String = ""
+        var DogAge: String = ""
+        var DogGender: String = ""
+        var DogDataDimensions: String = ""
+        var DogLat: Double = 0.0
+        var DogLon: Double = 0.0
+    }
+
+
+    var currentAge: String = ""
+    var currentGender: String = ""
+    var currentHeight: String = ""
+    var currentWeight: String = ""
+    var currentLength: String = ""
+    var currentBreed: String = ""
+    var currentLat: Double = 0.0
+    var currentLon: Double = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_update)
-    }
 
-    override fun onResume() {
-        super.onResume()
 
         //assign variables to corresponding views
         nameETUpdate = findViewById(R.id.editTextNameUpdate)
@@ -37,8 +53,10 @@ class UpdateActivity : AppCompatActivity(), OnItemSelectedListener {
         heightSpinUpdate = findViewById(R.id.spinnerHeightUpdate)
         lengthSpinUpdate = findViewById(R.id.spinnerLengthUpdate)
         weightSpinUpdate = findViewById(R.id.spinnerWeightUpdate)
+        radioButtonMale = findViewById(R.id.radioButtonMaleUpdate)
+        radioButtonFemale = findViewById(R.id.radioButtonFemaleUpdate)
 
-        nameETUpdate.addTextChangedListener(textWatcher)
+
 
         //setting up the spinner adapters
         val ageSpinnerAdapterUpdate = ArrayAdapter.createFromResource(
@@ -86,47 +104,66 @@ class UpdateActivity : AppCompatActivity(), OnItemSelectedListener {
         weightSpinUpdate.onItemSelectedListener = this
     }
 
-    private val textWatcher = object : TextWatcher {
-        override fun afterTextChanged(s: Editable?) {
+    override fun onResume() {
+        super.onResume()
+
+        nameETUpdate.text = DogName
+        ageSpinUpdate.setSelection(DogAge.toInt())
+
+        if(DogGender == "Male"){
+            radioButtonMale.isChecked = true
+        }else{
+            radioButtonFemale.isChecked = true
         }
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-        }
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            SecondActivity.dogDataName = s.toString()
-        }
+        var Height: String = ((DogDataDimensions!!.substringAfter("Height:")).substringBefore(","))
+        var Length: String = ((DogDataDimensions!!.substringAfter("Length:")).substringBefore(","))
+        var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")))
+
+//        var array: Array<Int> = R.array.heightArray
+//        heightSpinUpdate.setAdapter(Height)
+
     }
+
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         //actions for selected options in the spinner
         when(p0?.id) {
             R.id.spinnerAgeUpdate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataAge = ageSpinUpdate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataAge, Toast.LENGTH_LONG).show()
+                    currentAge = ageSpinUpdate.selectedItem.toString()
+                }else{
+                    currentAge = DogAge
                 }
             }
             R.id.spinnerBreedUpdate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataBreed = breedSpinUpdate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataBreed, Toast.LENGTH_LONG).show()
+                    currentBreed = breedSpinUpdate.selectedItem.toString()
+                }
+                else{
+                    currentBreed = DogDataDimensions
                 }
             }
             R.id.spinnerHeightUpdate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataDimensions = heightSpinUpdate.selectedItem.toString() + " x " + lengthSpinUpdate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataDimensions, Toast.LENGTH_LONG).show()
+                    currentHeight = heightSpinUpdate.selectedItem.toString()
+                }
+                else{
+                    currentHeight = DogDataDimensions
                 }
             }
             R.id.spinnerLengthUpdate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataDimensions = heightSpinUpdate.selectedItem.toString() + " x " + lengthSpinUpdate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataDimensions, Toast.LENGTH_LONG).show()
+                    currentLength = lengthSpinUpdate.selectedItem.toString()
+                }
+                else{
+                    currentLength = DogDataDimensions
                 }
             }
             R.id.spinnerWeightUpdate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataWeight = weightSpinUpdate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataWeight, Toast.LENGTH_LONG).show()
+                    currentWeight = weightSpinUpdate.selectedItem.toString()
+                }else{
+                    currentWeight = DogDataDimensions
                 }
             }
         }
@@ -142,15 +179,26 @@ class UpdateActivity : AppCompatActivity(), OnItemSelectedListener {
 
         when(view.id){
             R.id.radioButtonMaleUpdate-> {
-
-                SecondActivity.dogDataGender = getString(R.string.male)
-                Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
+                currentGender = getString(R.string.male)
             }
             R.id.radioButtonFemaleUpdate-> {
-                SecondActivity.dogDataGender = getString(R.string.female)
-                Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
+                currentGender = getString(R.string.female)
             }
         }
+    }
+
+    fun btnSave(view: View) {
+
+            SecondActivity.receiveDogName = DogName
+            SecondActivity.receiveDogAge = currentAge
+            SecondActivity.receiveDogGender = "${currentBreed} \n${currentGender}"
+            SecondActivity.receiveDogDataDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
+            SecondActivity.receiveLat = currentLat
+            SecondActivity.receiveLon = currentLon
+
+            SecondActivity().updateData()
+            val intent = Intent(this, SecondActivity::class.java)
+            startActivity(intent)
 
     }
 }
