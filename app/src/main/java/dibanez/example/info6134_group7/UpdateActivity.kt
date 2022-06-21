@@ -216,13 +216,10 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
 
             SecondActivity.receiveDogName = DogName
             SecondActivity.receiveDogAge = currentAge
-<<<<<<< HEAD
-            SecondActivity.receiveDogGender = "${currentBreed}, \n${currentGender}"
-            SecondActivity.receiveDogDataDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
-=======
+
             SecondActivity.receiveDogGender = "${currentBreed} \n${currentGender}"
             SecondActivity.receiveDogDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
->>>>>>> 4cbc8802957ab56ffd670bcce386098ea392c9a5
+
             SecondActivity.receiveLat = currentLat
             SecondActivity.receiveLon = currentLon
 
