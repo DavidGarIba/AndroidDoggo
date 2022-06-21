@@ -128,8 +128,11 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
             radioButtonFemale.isChecked = true
         }
         var Height: String = ((DogDataDimensions!!.substringAfter("Height:")).substringBefore("cm"))
+        Height = Height.replace("\\s".toRegex(), "")
         var Length: String = ((DogDataDimensions!!.substringAfter("Length:")).substringBefore("cm"))
+        Length = Length.replace("\\s".toRegex(), "")
         var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")).substringBefore("kg"))
+        Weight = Weight.replace("\\s".toRegex(), "")
         var Breed: String = ((DogAge!!.substringBefore(",")))
 
         heightSpinUpdate.setSelection(Height.toInt())
