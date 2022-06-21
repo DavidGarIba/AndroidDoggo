@@ -6,6 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".CreateActivity">
 
+    <EditText
+        android:id="@+id/editTextZipCreate"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/zip"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editTextStreetCreate"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerLengthCreate" />
+
+    <EditText
+        android:id="@+id/editTextStateCreate"
+        android:layout_width="166dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/state"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/editTextCityCreate"
+        app:layout_constraintTop_toBottomOf="@+id/editTextZipCreate" />
+
+    <EditText
+        android:id="@+id/editTextCityCreate"
+        android:layout_width="157dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="@string/city"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/editTextStateCreate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextStreetCreate" />
+
     <TextView
         android:id="@+id/textViewPostGenderCreate"
         android:layout_width="wrap_content"
@@ -16,7 +55,7 @@
         app:layout_constraintEnd_toStartOf="@+id/radioGroupGenderUpdate"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPostNameCreate" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameCreate" />
 
     <RadioGroup
         android:id="@+id/radioGroupGenderUpdate"
@@ -26,7 +65,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/textViewPostGenderCreate"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPostNameCreate">
+        app:layout_constraintTop_toBottomOf="@+id/editTextNameCreate">
 
         <RadioButton
             android:id="@+id/radioButtonMaleUpdate"
@@ -56,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/spinnerWeightCreate" />
 
     <EditText
-        android:id="@+id/editTextPostNameCreate"
+        android:id="@+id/editTextNameCreate"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="24dp"
@@ -67,7 +106,7 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPostTitleCreate" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitleCreate" />
 
     <Spinner
         android:id="@+id/spinnerWeightCreate"
@@ -101,17 +140,15 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editTextPostAddressCreate"
-        android:layout_width="0dp"
+        android:id="@+id/editTextStreetCreate"
+        android:layout_width="229dp"
         android:layout_height="50dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="24dp"
         android:ems="10"
-        android:hint="@string/address"
+        android:hint="@string/street"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/editTextZipCreate"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerHeightCreate" />
 
@@ -125,7 +162,7 @@
         app:layout_constraintTop_toBottomOf="@+id/radioGroupGenderUpdate" />
 
     <TextView
-        android:id="@+id/textViewPostTitleCreate"
+        android:id="@+id/textViewTitleCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -153,7 +190,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LatLon"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAddPostCreate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPostAddressCreate" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

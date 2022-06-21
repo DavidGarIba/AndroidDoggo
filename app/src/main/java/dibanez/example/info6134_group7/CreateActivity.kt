@@ -15,7 +15,12 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     //variables for data elements
     lateinit var nameETCreate: EditText
     lateinit var genderRGCreate: RadioGroup
-    lateinit var addressETCreate: EditText
+
+
+    lateinit var streetETCreate: EditText
+    lateinit var zipETCreate: EditText
+    lateinit var cityETCreate: EditText
+    lateinit var stateETCreate: EditText
     lateinit var latLonTVCreate: TextView
 
     lateinit var ageSpinCreate: Spinner
@@ -33,9 +38,13 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         super.onResume()
 
         //assign variables to corresponding views
-        nameETCreate = findViewById(R.id.editTextPostNameCreate)
+        nameETCreate = findViewById(R.id.editTextNameCreate)
         genderRGCreate = findViewById(R.id.radioGroupGenderUpdate)
-        addressETCreate = findViewById(R.id.editTextPostAddressCreate)
+
+        streetETCreate = findViewById(R.id.editTextStreetCreate)
+        zipETCreate = findViewById(R.id.editTextZipCreate)
+        cityETCreate = findViewById(R.id.editTextCityCreate)
+        stateETCreate = findViewById(R.id.editTextStateCreate)
         latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
 
         ageSpinCreate = findViewById(R.id.spinnerAgeCreate)
@@ -146,10 +155,12 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
 
     fun onGeocode () {
 
+        val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
         val geocode = Geocoder(this, Locale.getDefault())
-        val addList = geocode.getFromLocationName(addressETCreate.text.toString(), 1)
-        val latLon = addList.get(0).latitude.toString() + " and " + addList.get(0).longitude.toString()
-        latLonTVCreate.text = latLon
+        val addList = geocode.getFromLocationName(addressCompiler, 1)
+        SecondActivity.receiveLat = addList.get(0).latitude
+        SecondActivity.receiveLon = addList.get(0).longitude
+        latLonTVCreate.text = SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString()
     }
 
 
