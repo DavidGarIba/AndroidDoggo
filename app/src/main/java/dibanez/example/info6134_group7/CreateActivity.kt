@@ -4,6 +4,7 @@ import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import android.widget.*
@@ -109,7 +110,7 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         }
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            SecondActivity.dogDataName = s.toString()
+            SecondActivity.receiveDogName = s.toString()
         }
     }
 
@@ -118,32 +119,34 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         when(p0?.id) {
             R.id.spinnerAgeCreate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataAge = ageSpinCreate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataAge, Toast.LENGTH_LONG).show()
+                    SecondActivity.receiveDogAge = ageSpinCreate.selectedItem.toString()
+//                    Toast.makeText(this, SecondActivity.receiveDogAge, Toast.LENGTH_LONG).show()
                 }
             }
             R.id.spinnerBreedCreate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataBreed = breedSpinCreate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataBreed, Toast.LENGTH_LONG).show()
+                    SecondActivity.receiveDogBreed = breedSpinCreate.selectedItem.toString()
+//                    Toast.makeText(this, SecondActivity.receiveDogBreed, Toast.LENGTH_LONG).show()
                 }
             }
             R.id.spinnerHeightCreate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataDimensions, Toast.LENGTH_LONG).show()
+                    SecondActivity.receiveDogHeight = heightSpinCreate.selectedItem.toString()
+                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString()
+//                    Toast.makeText(this, SecondActivity.receiveDogDataDimensions, Toast.LENGTH_LONG).show()
                 }
             }
             R.id.spinnerLengthCreate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataDimensions, Toast.LENGTH_LONG).show()
+                    SecondActivity.receiveDogLength = lengthSpinCreate.selectedItem.toString()
+                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString()
+//                    Toast.makeText(this, SecondActivity.receiveDogDataDimensions, Toast.LENGTH_LONG).show()
                 }
             }
             R.id.spinnerWeightCreate-> {
                 if (p2 != 0) {
-                    SecondActivity.dogDataWeight = weightSpinCreate.selectedItem.toString()
-                    Toast.makeText(this, SecondActivity.dogDataWeight, Toast.LENGTH_LONG).show()
+                    SecondActivity.receiveDogWeight = weightSpinCreate.selectedItem.toString()
+//                    Toast.makeText(this, SecondActivity.receiveDogWeight, Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -156,12 +159,13 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
     fun onGeocode () {
-        val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
-        val geocode = Geocoder(this, Locale.getDefault())
-        val addList = geocode.getFromLocationName(addressCompiler, 1)
-        SecondActivity.receiveLat = addList.get(0).latitude
-        SecondActivity.receiveLon = addList.get(0).longitude
-        latLonTVCreate.text = SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString()
+
+            val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
+            val geocode = Geocoder(this, Locale.getDefault())
+            val addList = geocode.getFromLocationName(addressCompiler, 1)
+            SecondActivity.receiveLat = addList.get(0).latitude
+            SecondActivity.receiveLon = addList.get(0).longitude
+
     }
 
     fun addData(){
@@ -169,7 +173,7 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
             SecondActivity.receiveDogName,
             SecondActivity.receiveDogGender,
             SecondActivity.receiveDogAge,
-            SecondActivity.receiveDogDataDimensions,
+            SecondActivity.receiveDogDimensions,
             SecondActivity.receiveLat,
             SecondActivity.receiveLon)
         Firebase.database.reference.child("User/${MainActivity.userID}/${SecondActivity.receiveDogName}").setValue(dogObject)
@@ -188,20 +192,26 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     fun onRadioClicked(view: View) {
         when(view.id){
             R.id.radioButtonMaleUpdate-> {
-                SecondActivity.dogDataGender = getString(R.string.male)
-                Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
+                SecondActivity.receiveDogGender = getString(R.string.male)
+//                Toast.makeText(this, SecondActivity.receiveDogGender,Toast.LENGTH_SHORT).show()
             }
             R.id.radioButtonFemaleUpdate-> {
-                SecondActivity.dogDataGender = getString(R.string.female)
-                Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
+                SecondActivity.receiveDogGender = getString(R.string.female)
+//                Toast.makeText(this, SecondActivity.receiveDogGender,Toast.LENGTH_SHORT).show()
             }
         }
 
     }
 
     fun onAddClicked(view: View) {
+        if (SecondActivity.receiveDogHeight == "" ||SecondActivity.receiveDogLength == "" || SecondActivity.receiveDogWeight == "" || SecondActivity.receiveDogAge == "" || SecondActivity.receiveDogName == "" || SecondActivity.receiveDogGender == "" || SecondActivity.receiveDogBreed == "" || TextUtils.isEmpty(streetETCreate.text.toString()) || TextUtils.isEmpty(zipETCreate.text.toString()) || TextUtils.isEmpty(cityETCreate.text.toString()) || TextUtils.isEmpty(stateETCreate.text.toString())) {
+            Toast.makeText(this, "Complete all details",Toast.LENGTH_SHORT).show()
+        } else {
+            onGeocode()
+            addData()
+            finish()
+        }
+//        latLonTVCreate.text = SecondActivity.receiveDogName.toString() + " " + SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString() +  " " + SecondActivity.receiveDogWeight.toString() + " "  + SecondActivity.receiveDogAge.toString() + " " + SecondActivity.receiveDogGender.toString() + " " + SecondActivity.receiveDogDimensions.toString()
 
-        onGeocode()
-        finish()
     }
 }
