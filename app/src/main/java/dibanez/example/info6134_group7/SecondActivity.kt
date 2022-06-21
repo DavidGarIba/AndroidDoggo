@@ -43,6 +43,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         var shareDogName: String = ""
         var shareDogAge: String = ""
         var shareDogGender: String = ""
+        var shareDogBreed: String = ""
+
         var shareDogDataDimensions: String = ""
         var shareLat: Double = 0.0
         var shareLon: Double = 0.0
