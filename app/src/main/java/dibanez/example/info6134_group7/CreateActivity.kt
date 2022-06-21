@@ -171,8 +171,10 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     fun addData(){
         var dogObject: DataType = DataType(
             SecondActivity.receiveDogName,
-            SecondActivity.receiveDogGender,
             SecondActivity.receiveDogAge,
+            SecondActivity.receiveDogGender,
+            SecondActivity.receiveDogBreed,
+
             SecondActivity.receiveDogDimensions,
             SecondActivity.receiveLat,
             SecondActivity.receiveLon)
