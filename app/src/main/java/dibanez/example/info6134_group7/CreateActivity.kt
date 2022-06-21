@@ -8,6 +8,8 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
@@ -154,7 +156,6 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
     fun onGeocode () {
-
         val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
         val geocode = Geocoder(this, Locale.getDefault())
         val addList = geocode.getFromLocationName(addressCompiler, 1)
@@ -163,12 +164,30 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         latLonTVCreate.text = SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString()
     }
 
+    fun addData(){
+        var dogObject: DataType = DataType(
+            SecondActivity.receiveDogName,
+            SecondActivity.receiveDogGender,
+            SecondActivity.receiveDogAge,
+            SecondActivity.receiveDogDataDimensions,
+            SecondActivity.receiveLat,
+            SecondActivity.receiveLon)
+        Firebase.database.reference.child("User/${MainActivity.userID}/${SecondActivity.receiveDogName}").setValue(dogObject)
+            .addOnSuccessListener {
+                Toast.makeText(baseContext, "Data added successfully.",
+                    Toast.LENGTH_SHORT).show()
+
+            }
+            .addOnFailureListener {
+                Toast.makeText(baseContext, "Data added failed.",
+                    Toast.LENGTH_SHORT).show()
+            }
+    }
+
 
     fun onRadioClicked(view: View) {
-
         when(view.id){
             R.id.radioButtonMaleUpdate-> {
-
                 SecondActivity.dogDataGender = getString(R.string.male)
                 Toast.makeText(this, SecondActivity.dogDataGender,Toast.LENGTH_SHORT).show()
             }
@@ -181,6 +200,9 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
     fun onAddClicked(view: View) {
+
         onGeocode()
+        addData()
+        finish()
     }
 }

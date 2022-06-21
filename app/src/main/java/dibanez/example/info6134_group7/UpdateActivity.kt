@@ -30,7 +30,7 @@ class UpdateActivity : AppCompatActivity(), OnItemSelectedListener {
         super.onResume()
 
         //assign variables to corresponding views
-        nameETUpdate = findViewById(R.id.editTextPostNameUpdate)
+        nameETUpdate = findViewById(R.id.editTextNameUpdate)
         genderRGUpdate = findViewById(R.id.radioGroupGenderUpdate)
         ageSpinUpdate = findViewById(R.id.spinnerAgeUpdate)
         breedSpinUpdate = findViewById(R.id.spinnerBreedUpdate)

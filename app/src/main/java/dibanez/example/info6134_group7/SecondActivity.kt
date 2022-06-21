@@ -100,13 +100,14 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
             .addOnSuccessListener {
                 Toast.makeText(baseContext, "Data added successfully.",
                     Toast.LENGTH_SHORT).show()
-                readData()
+
             }
             .addOnFailureListener {
                 Toast.makeText(baseContext, "Data added failed.",
                     Toast.LENGTH_SHORT).show()
             }
     }
+
     // call from ThirdActivity
     fun updateData(){
         var dogObject: DataType = DataType(receiveDogName, receiveDogGender, receiveDogAge,
