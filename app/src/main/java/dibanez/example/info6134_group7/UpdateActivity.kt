@@ -1,11 +1,13 @@
 package dibanez.example.info6134_group7
 
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
 import androidx.appcompat.app.AppCompatActivity
+import java.util.*
 
 
 class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
@@ -21,6 +23,11 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     lateinit var weightSpinUpdate: Spinner
     lateinit var radioButtonMale: RadioButton
     lateinit var radioButtonFemale: RadioButton
+    lateinit var streetETCreate: EditText
+    lateinit var zipETCreate: EditText
+    lateinit var cityETCreate: EditText
+    lateinit var stateETCreate: EditText
+    lateinit var latLonTVCreate: TextView
     companion object{
         var DogName: String = ""
         var DogAge: String = ""
@@ -56,6 +63,11 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         radioButtonMale = findViewById(R.id.radioButtonMaleUpdate)
         radioButtonFemale = findViewById(R.id.radioButtonFemaleUpdate)
 
+        streetETCreate = findViewById(R.id.editTextStreetCreate)
+        zipETCreate = findViewById(R.id.editTextZipCreate)
+        cityETCreate = findViewById(R.id.editTextCityCreate)
+        stateETCreate = findViewById(R.id.editTextStateCreate)
+        latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
 
 
         //setting up the spinner adapters
@@ -115,15 +127,27 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         }else{
             radioButtonFemale.isChecked = true
         }
-        var Height: String = ((DogDataDimensions!!.substringAfter("Height:")).substringBefore(","))
-        var Length: String = ((DogDataDimensions!!.substringAfter("Length:")).substringBefore(","))
-        var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")))
+        var Height: String = ((DogDataDimensions!!.substringAfter("Height:")).substringBefore("cm"))
+        var Length: String = ((DogDataDimensions!!.substringAfter("Length:")).substringBefore("cm"))
+        var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")).substringBefore("kg"))
+        var Breed: String = ((DogAge!!.substringBefore(",")))
 
-//        var array: Array<Int> = R.array.heightArray
-//        heightSpinUpdate.setAdapter(Height)
+        heightSpinUpdate.setSelection(Height.toInt())
+        lengthSpinUpdate.setSelection(Length.toInt())
+        weightSpinUpdate.setSelection(Weight.toInt())
+        //breedSpinUpdate.setSelection(Breed.toInt())
 
+        ConvertLatLonToAddress()
     }
 
+    fun ConvertAddressToLatLon(){
+        val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
+        val geocode = Geocoder(this, Locale.getDefault())
+        val addList = geocode.getFromLocationName(addressCompiler, 1)
+        currentLat = addList.get(0).latitude
+        currentLon = addList.get(0).longitude
+    }
+    fun ConvertLatLonToAddress(){}
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         //actions for selected options in the spinner
@@ -148,7 +172,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
                     currentHeight = heightSpinUpdate.selectedItem.toString()
                 }
                 else{
-                    currentHeight = DogDataDimensions
+                    currentHeight = ((DogDataDimensions!!.substringAfter("Height:")).substringBefore(","))
                 }
             }
             R.id.spinnerLengthUpdate-> {
@@ -156,14 +180,14 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
                     currentLength = lengthSpinUpdate.selectedItem.toString()
                 }
                 else{
-                    currentLength = DogDataDimensions
+                    currentLength = ((DogDataDimensions!!.substringAfter("Length:")).substringBefore(","))
                 }
             }
             R.id.spinnerWeightUpdate-> {
                 if (p2 != 0) {
                     currentWeight = weightSpinUpdate.selectedItem.toString()
                 }else{
-                    currentWeight = DogDataDimensions
+                    currentWeight = ((DogDataDimensions!!.substringAfter("Weight:")))
                 }
             }
         }
@@ -188,10 +212,11 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     }
 
     fun btnSave(view: View) {
+            ConvertAddressToLatLon()
 
             SecondActivity.receiveDogName = DogName
             SecondActivity.receiveDogAge = currentAge
-            SecondActivity.receiveDogGender = "${currentBreed} \n${currentGender}"
+            SecondActivity.receiveDogGender = "${currentBreed}, \n${currentGender}"
             SecondActivity.receiveDogDataDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
             SecondActivity.receiveLat = currentLat
             SecondActivity.receiveLon = currentLon
