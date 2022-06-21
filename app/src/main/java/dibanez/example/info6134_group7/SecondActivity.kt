@@ -82,6 +82,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
                             "${snapshot.child("name").getValue()}",
                             "${snapshot.child("age").getValue()}",
                             "${snapshot.child("gender").getValue()}",
+                            "${snapshot.child("breed").getValue()}",
                             "${snapshot.child("dimension").getValue()}",
                             snapshot.child("lat").getValue().toString().toDouble(),
                             snapshot.child("lon").getValue().toString().toDouble(),
@@ -99,8 +100,14 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
     // call from ThirdActivity
     fun addData(){
-        var dogObject = DataType(receiveDogName, receiveDogGender, receiveDogAge,
-            receiveDogDimensions, receiveLat, receiveLon,check = false)
+        var dogObject = DataType(receiveDogName,
+            receiveDogAge,
+            receiveDogGender,
+            receiveDogBreed,
+
+            receiveDogDimensions,
+            receiveLat,
+            receiveLon)
         Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
             .addOnSuccessListener {
                 Toast.makeText(baseContext, "Data added successfully.",
@@ -115,8 +122,13 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
     // call from ThirdActivity
     fun updateData(){
-        var dogObject: DataType = DataType(receiveDogName,receiveDogAge, receiveDogGender,
-            receiveDogDimensions, receiveLat, receiveLon,check = false)
+        var dogObject: DataType = DataType(receiveDogName,
+            receiveDogAge,
+            receiveDogGender,
+            receiveDogBreed,
+            receiveDogDimensions,
+            receiveLat,
+            receiveLon,check = false)
         Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
             .addOnSuccessListener {
               //  Toast.makeText(baseContext, "Data updated successfully.", Toast.LENGTH_SHORT).show()
