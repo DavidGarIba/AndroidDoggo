@@ -202,7 +202,6 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     fun onAddClicked(view: View) {
 
         onGeocode()
-        addData()
         finish()
     }
 }
