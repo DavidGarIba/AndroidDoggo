@@ -132,20 +132,21 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
             R.id.spinnerHeightCreate-> {
                 if (p2 != 0) {
                     SecondActivity.receiveDogHeight = heightSpinCreate.selectedItem.toString()
-                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString()
+                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString() + " x " + weightSpinCreate.selectedItem.toString()
 //                    Toast.makeText(this, SecondActivity.receiveDogDataDimensions, Toast.LENGTH_LONG).show()
                 }
             }
             R.id.spinnerLengthCreate-> {
                 if (p2 != 0) {
                     SecondActivity.receiveDogLength = lengthSpinCreate.selectedItem.toString()
-                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString()
+                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString() + " x " + weightSpinCreate.selectedItem.toString()
 //                    Toast.makeText(this, SecondActivity.receiveDogDataDimensions, Toast.LENGTH_LONG).show()
                 }
             }
             R.id.spinnerWeightCreate-> {
                 if (p2 != 0) {
                     SecondActivity.receiveDogWeight = weightSpinCreate.selectedItem.toString()
+                    SecondActivity.receiveDogDimensions = heightSpinCreate.selectedItem.toString() + " x " + lengthSpinCreate.selectedItem.toString() + " x " + weightSpinCreate.selectedItem.toString()
 //                    Toast.makeText(this, SecondActivity.receiveDogWeight, Toast.LENGTH_LONG).show()
                 }
             }
