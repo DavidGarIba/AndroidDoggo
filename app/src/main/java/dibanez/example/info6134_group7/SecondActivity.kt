@@ -52,7 +52,11 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
         var receiveDogName: String = ""
         var receiveDogAge: String = ""
         var receiveDogGender: String = ""
-        var receiveDogDataDimensions: String = ""
+        var receiveDogWeight: String = ""
+        var receiveDogBreed: String = ""
+        var receiveDogHeight: String = ""
+        var receiveDogLength: String = ""
+        var receiveDogDimensions: String = ""
         var receiveLat: Double = 0.0
         var receiveLon: Double = 0.0
 
@@ -95,8 +99,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
     // call from ThirdActivity
     fun addData(){
-        var dogObject: DataType = DataType(receiveDogName, receiveDogGender, receiveDogAge,
-            receiveDogDataDimensions, receiveLat, receiveLon,check = false)
+        var dogObject = DataType(receiveDogName, receiveDogGender, receiveDogAge,
+            receiveDogDimensions, receiveLat, receiveLon,check = false)
         Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
             .addOnSuccessListener {
                 Toast.makeText(baseContext, "Data added successfully.",
@@ -112,7 +116,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     // call from ThirdActivity
     fun updateData(){
         var dogObject: DataType = DataType(receiveDogName,receiveDogAge, receiveDogGender,
-            receiveDogDataDimensions, receiveLat, receiveLon,check = false)
+            receiveDogDimensions, receiveLat, receiveLon,check = false)
         Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
             .addOnSuccessListener {
               //  Toast.makeText(baseContext, "Data updated successfully.", Toast.LENGTH_SHORT).show()
@@ -177,6 +181,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
             adapter = recyclerAdapter  }
 
        // readData()
+//        addData()
     }
     fun RecyclerViewOnView(){
         recyclerView = findViewById<RecyclerView>(R.id.RecyclerView)
