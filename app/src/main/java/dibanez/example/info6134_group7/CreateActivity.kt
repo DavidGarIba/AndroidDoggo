@@ -48,7 +48,6 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         zipETCreate = findViewById(R.id.editTextZipCreate)
         cityETCreate = findViewById(R.id.editTextCityCreate)
         stateETCreate = findViewById(R.id.editTextStateCreate)
-        latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
 
         ageSpinCreate = findViewById(R.id.spinnerAgeCreate)
         breedSpinCreate = findViewById(R.id.spinnerBreedCreate)

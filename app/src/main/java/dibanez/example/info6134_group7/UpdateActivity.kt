@@ -21,17 +21,23 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     lateinit var heightSpinUpdate: Spinner
     lateinit var lengthSpinUpdate: Spinner
     lateinit var weightSpinUpdate: Spinner
+
     lateinit var radioButtonMale: RadioButton
     lateinit var radioButtonFemale: RadioButton
-    lateinit var streetETCreate: EditText
-    lateinit var zipETCreate: EditText
-    lateinit var cityETCreate: EditText
-    lateinit var stateETCreate: EditText
-    lateinit var latLonTVCreate: TextView
+
+    lateinit var streetETUpdate: EditText
+    lateinit var zipETUpdate: EditText
+    lateinit var cityETUpdate: EditText
+    lateinit var stateETUpdate: EditText
+
+    lateinit var testButton: Button
+    lateinit var testTVUpdate: TextView
+
     companion object{
         var DogName: String = ""
         var DogAge: String = ""
         var DogGender: String = ""
+        var DogBreed: String = ""
         var DogDataDimensions: String = ""
         var DogLat: Double = 0.0
         var DogLon: Double = 0.0
@@ -54,21 +60,24 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
 
         //assign variables to corresponding views
         nameETUpdate = findViewById(R.id.editTextNameUpdate)
+
         genderRGUpdate = findViewById(R.id.radioGroupGenderUpdate)
+        radioButtonMale = findViewById(R.id.radioButtonMaleUpdate)
+        radioButtonFemale = findViewById(R.id.radioButtonFemaleUpdate)
+
         ageSpinUpdate = findViewById(R.id.spinnerAgeUpdate)
         breedSpinUpdate = findViewById(R.id.spinnerBreedUpdate)
         heightSpinUpdate = findViewById(R.id.spinnerHeightUpdate)
         lengthSpinUpdate = findViewById(R.id.spinnerLengthUpdate)
         weightSpinUpdate = findViewById(R.id.spinnerWeightUpdate)
-        radioButtonMale = findViewById(R.id.radioButtonMaleUpdate)
-        radioButtonFemale = findViewById(R.id.radioButtonFemaleUpdate)
 
-        streetETCreate = findViewById(R.id.editTextStreetUpdate)
-        zipETCreate = findViewById(R.id.editTextZipUpdate)
-        cityETCreate = findViewById(R.id.editTextCityUpdate)
-        stateETCreate = findViewById(R.id.editTextStateUpdate)
-       // latLonTVCreate = findViewById(R.id.textViewLatLonCreate)
+        streetETUpdate = findViewById(R.id.editTextStreetUpdate)
+        zipETUpdate = findViewById(R.id.editTextZipUpdate)
+        cityETUpdate = findViewById(R.id.editTextCityUpdate)
+        stateETUpdate = findViewById(R.id.editTextStateUpdate)
 
+        testButton = findViewById(R.id.buttonTestUpdate)
+        testTVUpdate = findViewById(R.id.textViewTestUpdate)
 
         //setting up the spinner adapters
         val ageSpinnerAdapterUpdate = ArrayAdapter.createFromResource(
@@ -122,6 +131,16 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         nameETUpdate.text = DogName
         ageSpinUpdate.setSelection(DogAge.toInt())
 
+        when(DogBreed) {
+            "Australian Shepard" -> breedSpinUpdate.setSelection(1)
+            "Beagle" -> breedSpinUpdate.setSelection(2)
+            "Corgi" -> breedSpinUpdate.setSelection(3)
+            "French Bulldog" -> breedSpinUpdate.setSelection(4)
+            "Golden Retriever" -> breedSpinUpdate.setSelection(5)
+            "Pomerian" -> breedSpinUpdate.setSelection(6)
+            "Shiba Inu" -> breedSpinUpdate.setSelection(7)
+        }
+
         if(DogGender == "Male"){
             radioButtonMale.isChecked = true
         }else{
@@ -138,19 +157,34 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         heightSpinUpdate.setSelection(Height.toInt())
         lengthSpinUpdate.setSelection(Length.toInt())
         weightSpinUpdate.setSelection(Weight.toInt())
-        //breedSpinUpdate.setSelection(Breed.toInt())
 
         ConvertLatLonToAddress()
+
+        currentAge = DogAge
+        currentBreed = DogBreed
+        currentGender = DogGender
+        currentLat = DogLat
+        currentLon = DogLon
+        currentHeight = DogDataDimensions!!.substringAfter("Height:").substringBefore(",")
+        currentLength = DogDataDimensions!!.substringAfter("Length:").substringBefore(",")
+        currentWeight = DogDataDimensions!!.substringAfter("Weight:")
     }
 
     fun ConvertAddressToLatLon(){
-        val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
+        val addressCompiler = streetETUpdate.text.toString() + ", " + cityETUpdate.text.toString() + ", " + stateETUpdate.text.toString() + ", " + zipETUpdate.text.toString() + ", "
         val geocode = Geocoder(this, Locale.getDefault())
         val addList = geocode.getFromLocationName(addressCompiler, 1)
         currentLat = addList.get(0).latitude
         currentLon = addList.get(0).longitude
     }
-    fun ConvertLatLonToAddress(){}
+    fun ConvertLatLonToAddress(){
+        val geocode = Geocoder(this, Locale.getDefault())
+        val addList = geocode.getFromLocation(DogLat, DogLon, 1)
+        streetETUpdate.setText(addList.get(0).getThoroughfare())
+        zipETUpdate.setText(addList.get(0).getPostalCode())
+        cityETUpdate.setText(addList.get(0).getLocality())
+        stateETUpdate.setText(addList.get(0).getAdminArea())
+    }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
         //actions for selected options in the spinner
@@ -229,6 +263,14 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
             SecondActivity().updateData()
             val intent = Intent(this, SecondActivity::class.java)
             startActivity(intent)
+
+    }
+
+    fun onTestClicked(view: View) {
+
+//        testTVUpdate.text = DogName + " " + DogLat.toString() + " " + DogLon.toString() +  " " + DogDataDimensions + " "  + DogAge.toString() + " " + DogGender + " " + DogBreed
+        testTVUpdate.text = DogName + " " + currentLat.toString() + " " + currentLon.toString() +  " " + currentHeight + " "  + currentWeight + " "  + currentLength + " "  + currentAge + " " + currentGender + " " + currentBreed
+
 
     }
 }

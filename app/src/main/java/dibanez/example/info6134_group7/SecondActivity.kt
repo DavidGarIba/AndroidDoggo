@@ -225,6 +225,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
             UpdateActivity.DogName= shareDogName
             UpdateActivity.DogAge=  shareDogAge
             UpdateActivity.DogGender= shareDogGender
+            UpdateActivity.DogBreed = shareDogBreed
             UpdateActivity.DogDataDimensions= shareDogDataDimensions
             UpdateActivity.DogLat = shareLat
             UpdateActivity.DogLon= shareLon

@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-
 class RecyclerAdapter(private val dataSet: MutableList<DataType>, private val cellClickListener: CellClickListener) :
     RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
@@ -23,7 +22,6 @@ class RecyclerAdapter(private val dataSet: MutableList<DataType>, private val ce
         val textViewGender: TextView
         val textViewDimension: TextView
         val checkBox: CheckBox
-
 
         init {
             // Define click listener for the ViewHolder's View.
@@ -67,6 +65,9 @@ class RecyclerAdapter(private val dataSet: MutableList<DataType>, private val ce
                 SecondActivity.shareDogName = dataSet[position].name.toString()
                 SecondActivity.shareDogAge = dataSet[position].age.toString()
                 SecondActivity.shareDogGender = dataSet[position].gender.toString()
+                SecondActivity.shareDogBreed = dataSet[position].breed.toString()
+                SecondActivity.shareLat = dataSet[position].lat
+                SecondActivity.shareLon = dataSet[position].lon
                 SecondActivity.shareDogDataDimensions = dataSet[position].dimension.toString()
                 dataSet[position].check = true
                 Firebase.database.reference.child("User/${MainActivity.userID}/${dataSet[position].name}/check").setValue(true)
@@ -74,13 +75,14 @@ class RecyclerAdapter(private val dataSet: MutableList<DataType>, private val ce
                 SecondActivity.shareDogName = ""
                 SecondActivity.shareDogAge = ""
                 SecondActivity.shareDogGender = ""
+                SecondActivity.shareDogBreed = ""
                 SecondActivity.shareDogDataDimensions = ""
+                SecondActivity.shareLat = 0.0
+                SecondActivity.shareLon = 0.0
                 dataSet[position].check = false
                 Firebase.database.reference.child("User/${MainActivity.userID}/${dataSet[position].name}/check").setValue(false)
             }
         }
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
