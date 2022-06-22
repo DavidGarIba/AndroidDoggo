@@ -201,7 +201,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
                     currentBreed = breedSpinUpdate.selectedItem.toString()
                 }
                 else{
-                    currentBreed = DogDataDimensions
+                    currentBreed = DogBreed
                 }
             }
             R.id.spinnerHeightUpdate-> {
@@ -254,7 +254,9 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
             SecondActivity.receiveDogName = DogName
             SecondActivity.receiveDogAge = currentAge
 
-            SecondActivity.receiveDogGender = "${currentBreed} \n${currentGender}"
+        SecondActivity.receiveDogBreed = currentBreed
+
+            SecondActivity.receiveDogGender = currentGender
             SecondActivity.receiveDogDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
 
             SecondActivity.receiveLat = currentLat
