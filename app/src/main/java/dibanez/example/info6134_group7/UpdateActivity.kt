@@ -153,7 +153,9 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")).substringBefore("kg"))
         Weight = Weight.replace("\\s".toRegex(), "")
         var Breed: String = ((DogGender!!.substringBefore(",")))
+        Breed = Breed.replace("\\s".toRegex(), "")
         var Gender: String = ((DogGender!!.substringAfter(",")))
+        Gender = Gender.replace("\\s".toRegex(), "")
 
         heightSpinUpdate.setSelection(Height.toInt())
         lengthSpinUpdate.setSelection(Length.toInt())
