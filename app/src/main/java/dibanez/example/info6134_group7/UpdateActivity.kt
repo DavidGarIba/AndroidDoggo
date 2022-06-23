@@ -152,10 +152,10 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         Length = Length.replace("\\s".toRegex(), "")
         var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")).substringBefore("kg"))
         Weight = Weight.replace("\\s".toRegex(), "")
-        var Breed: String = ((DogGender!!.substringBefore(",")))
-        Breed = Breed.replace("\\s".toRegex(), "")
-        var Gender: String = ((DogGender!!.substringAfter(",")))
-        Gender = Gender.replace("\\s".toRegex(), "")
+//        var Breed: String = ((DogGender!!.substringBefore(",")))
+//        Breed = Breed.replace("\\s".toRegex(), "")
+//        var Gender: String = ((DogGender!!.substringAfter(",")))
+//        Gender = Gender.replace("\\s".toRegex(), "")
 
         heightSpinUpdate.setSelection(Height.toInt())
         lengthSpinUpdate.setSelection(Length.toInt())
@@ -164,8 +164,8 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         ConvertLatLonToAddress()
 
         currentAge = DogAge
-        currentBreed = Breed
-        currentGender = Gender
+        currentBreed = DogBreed
+        currentGender = DogGender
         currentLat = DogLat
         currentLon = DogLon
         currentHeight = DogDataDimensions!!.substringAfter("Height:").substringBefore(",")
@@ -260,7 +260,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
 
         SecondActivity.receiveDogBreed = currentBreed
 
-            SecondActivity.receiveDogGender = "${currentBreed},\n${currentGender}"
+            SecondActivity.receiveDogGender = currentGender
             SecondActivity.receiveDogDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
 
             SecondActivity.receiveLat = currentLat
