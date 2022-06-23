@@ -180,7 +180,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     fun ConvertLatLonToAddress(){
         val geocode = Geocoder(this, Locale.getDefault())
         val addList = geocode.getFromLocation(DogLat, DogLon, 1)
-        streetETUpdate.setText(addList.get(0).getThoroughfare())
+        streetETUpdate.setText((addList.get(0).getAddressLine(0)).substringBefore(","))
         zipETUpdate.setText(addList.get(0).getPostalCode())
         cityETUpdate.setText(addList.get(0).getLocality())
         stateETUpdate.setText(addList.get(0).getAdminArea())

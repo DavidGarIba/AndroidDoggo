@@ -273,8 +273,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     }
 
     fun backBtn(view: View) {
-//        val fragment = RecyclerViewFragment()
-//        supportFragmentManager.inTransaction { replace(R.id.fragmentContainerView, fragment) }
+        val fragment = RecyclerViewFragment()
+        supportFragmentManager.inTransaction { replace(R.id.fragmentContainerView, fragment) }
         Log.i("TEST", "this is the message")
 
     }
