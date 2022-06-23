@@ -54,7 +54,7 @@ class RecyclerAdapter(private val dataSet: MutableList<DataType>, private val ce
         // contents of the view with that element
         viewHolder.textViewName.text = dataSet[position].name.toString()
         viewHolder.textViewAge.text = dataSet[position].age.toString()
-        viewHolder.textViewGender.text = dataSet[position].gender.toString()
+        viewHolder.textViewGender.text = "${dataSet[position].gender.toString()}\n${dataSet[position].breed.toString()}"
         viewHolder.textViewDimension.text = dataSet[position].dimension.toString()
         viewHolder.itemView.setOnClickListener{
             cellClickListener.onCellClickListener(dataSet[position].lat, dataSet[position].lon)
