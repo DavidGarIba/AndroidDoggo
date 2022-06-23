@@ -152,7 +152,8 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         Length = Length.replace("\\s".toRegex(), "")
         var Weight: String = ((DogDataDimensions!!.substringAfter("Weight:")).substringBefore("kg"))
         Weight = Weight.replace("\\s".toRegex(), "")
-        var Breed: String = ((DogAge!!.substringBefore(",")))
+        var Breed: String = ((DogGender!!.substringBefore(",")))
+        var Gender: String = ((DogGender!!.substringAfter(",")))
 
         heightSpinUpdate.setSelection(Height.toInt())
         lengthSpinUpdate.setSelection(Length.toInt())
@@ -161,8 +162,8 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         ConvertLatLonToAddress()
 
         currentAge = DogAge
-        currentBreed = DogBreed
-        currentGender = DogGender
+        currentBreed = Breed
+        currentGender = Gender
         currentLat = DogLat
         currentLon = DogLon
         currentHeight = DogDataDimensions!!.substringAfter("Height:").substringBefore(",")
@@ -180,7 +181,8 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     fun ConvertLatLonToAddress(){
         val geocode = Geocoder(this, Locale.getDefault())
         val addList = geocode.getFromLocation(DogLat, DogLon, 1)
-        streetETUpdate.setText((addList.get(0).getAddressLine(0)).substringBefore(","))
+        println(addList.get(0).getAddressLine(0))
+        streetETUpdate.setText((addList.get(0).getAddressLine(0)).substringBefore("St,"))
         zipETUpdate.setText(addList.get(0).getPostalCode())
         cityETUpdate.setText(addList.get(0).getLocality())
         stateETUpdate.setText(addList.get(0).getAdminArea())
@@ -256,7 +258,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
 
         SecondActivity.receiveDogBreed = currentBreed
 
-            SecondActivity.receiveDogGender = currentGender
+            SecondActivity.receiveDogGender = "${currentBreed},\n${currentGender}"
             SecondActivity.receiveDogDimensions = "Height:${currentHeight},\nLength:${currentLength},\nWeight:${currentWeight}"
 
             SecondActivity.receiveLat = currentLat
