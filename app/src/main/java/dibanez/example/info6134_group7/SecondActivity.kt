@@ -2,6 +2,7 @@ package dibanez.example.info6134_group7
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -143,45 +144,54 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     }
 
     fun removeData(){
-        dogData.removeAll { it.check == true }
-        recyclerView.adapter = RecyclerAdapter(dogData, this)
-        recyclerAdapter.notifyDataSetChanged()
-        println(dogData)
+        if(shareDogName != "" && shareDogGender != "" && shareDogAge != "" && shareDogDataDimensions != "" ) {
+            dogData.removeAll { it.check == true }
+            recyclerView.adapter = RecyclerAdapter(dogData, this)
+            recyclerAdapter.notifyDataSetChanged()
+            println(dogData)
 
-        val Snapshot = Firebase.database.reference.child("User/${MainActivity.userID}")
-            .orderByChild("check").equalTo(true)
+            val Snapshot = Firebase.database.reference.child("User/${MainActivity.userID}")
+                .orderByChild("check").equalTo(true)
 
-        Snapshot.addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(snapshot: DataSnapshot, previousChild: String?) {
-                snapshot.ref.setValue(null)
-                    .addOnSuccessListener {
-                        Toast.makeText(baseContext, "Data removed successfully.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-                    .addOnFailureListener {
-                        Toast.makeText(baseContext, "Data removed failed.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-            }
+            Snapshot.addChildEventListener(object : ChildEventListener {
+                override fun onChildAdded(snapshot: DataSnapshot, previousChild: String?) {
+                    snapshot.ref.setValue(null)
+                        .addOnSuccessListener {
+                            Toast.makeText(
+                                baseContext, "Data removed successfully.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                baseContext, "Data removed failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
 
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                println(snapshot)
-            }
+                override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                    println(snapshot)
+                }
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                println(snapshot)
-                Snapshot.removeEventListener(this);
+                override fun onChildRemoved(snapshot: DataSnapshot) {
+                    println(snapshot)
+                    Snapshot.removeEventListener(this);
 
-            }
+                }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                println(snapshot)
-            }
+                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                    println(snapshot)
+                }
 
-            override fun onCancelled(error: DatabaseError) {
-                println(error)
-            }
-        })
+                override fun onCancelled(error: DatabaseError) {
+                    println(error)
+                }
+            })
+        } else {
+            Toast.makeText(baseContext, "Please Select Dog",
+                Toast.LENGTH_SHORT).show()
+        }
 
 
     }
@@ -223,7 +233,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
     fun editBtn(view: View) {
         //updateData()
-        if(shareDogName != null && shareDogGender != null && shareDogAge != null && shareDogDataDimensions != null)
+        if(shareDogName != "" && shareDogGender != "" && shareDogAge != "" && shareDogDataDimensions != "" )
         {
             UpdateActivity.DogName= shareDogName
             UpdateActivity.DogAge=  shareDogAge
@@ -263,8 +273,9 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     }
 
     fun backBtn(view: View) {
-        val fragment = RecyclerViewFragment()
-        supportFragmentManager.inTransaction { replace(R.id.fragmentContainerView, fragment) }
+//        val fragment = RecyclerViewFragment()
+//        supportFragmentManager.inTransaction { replace(R.id.fragmentContainerView, fragment) }
+        Log.i("TEST", "this is the message")
 
     }
 
