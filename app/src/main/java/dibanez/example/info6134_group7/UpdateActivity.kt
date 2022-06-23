@@ -76,8 +76,8 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         cityETUpdate = findViewById(R.id.editTextCityUpdate)
         stateETUpdate = findViewById(R.id.editTextStateUpdate)
 
-        testButton = findViewById(R.id.buttonTestUpdate)
-        testTVUpdate = findViewById(R.id.textViewTestUpdate)
+//        testButton = findViewById(R.id.buttonTestUpdate)
+//        testTVUpdate = findViewById(R.id.textViewTestUpdate)
 
         //setting up the spinner adapters
         val ageSpinnerAdapterUpdate = ArrayAdapter.createFromResource(

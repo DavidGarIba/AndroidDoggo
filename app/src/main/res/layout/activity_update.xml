@@ -186,23 +186,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/textViewTestUpdate"
-        android:layout_width="0dp"
-        android:layout_height="100dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/buttonPostUpdate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/buttonTestUpdate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onTestClicked"
-        android:text="Button"
-        app:layout_constraintBottom_toTopOf="@+id/textViewTestUpdate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

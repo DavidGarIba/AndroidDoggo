@@ -8,9 +8,9 @@
     <string name="signup">Sign up ></string>
     <string name="newpost">New Post</string>
     <string name="updatepost">Update Post</string>
-    <string name="addpost">Add post</string>
-    <string name="editpost">Edit post</string>
-    <string name="removepost">Delete post</string>
+    <string name="addpost">Add</string>
+    <string name="editpost">Edit</string>
+    <string name="removepost">Delete</string>
     <string name="signout">Sign out</string>
     <string name="List">Dog List</string>
     <string name="dogname">Name</string>
