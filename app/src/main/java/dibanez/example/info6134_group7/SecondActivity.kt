@@ -170,6 +170,8 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 println(snapshot)
+                Snapshot.removeEventListener(this);
+
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -180,6 +182,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
                 println(error)
             }
         })
+
 
     }
 
