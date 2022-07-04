@@ -186,4 +186,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <ImageButton
+        android:id="@+id/imageButtonEmail"
+        android:layout_width="45dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginTop="5dp"
+        android:backgroundTint="#FF5722"
+        android:onClick="onClickEmail"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonSMS"
+        app:layout_constraintStart_toEndOf="@+id/textViewTitleUpdate"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/sym_action_email" />
+
+    <ImageButton
+        android:id="@+id/imageButtonSMS"
+        android:layout_width="45dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="#FF5722"
+        android:onClick="onClickSMS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonEmail"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/sym_action_chat" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

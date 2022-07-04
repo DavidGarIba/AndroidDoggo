@@ -1,12 +1,18 @@
 package dibanez.example.info6134_group7
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Geocoder
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import java.util.*
 
 
@@ -33,6 +39,9 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     lateinit var testButton: Button
     lateinit var testTVUpdate: TextView
 
+    lateinit var imageButtonEmail: ImageButton
+    lateinit var imageButtonSMS: ImageButton
+
     companion object{
         var DogName: String = ""
         var DogAge: String = ""
@@ -52,6 +61,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
     var currentBreed: String = ""
     var currentLat: Double = 0.0
     var currentLon: Double = 0.0
+    var currentAddress: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +85,9 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         zipETUpdate = findViewById(R.id.editTextZipUpdate)
         cityETUpdate = findViewById(R.id.editTextCityUpdate)
         stateETUpdate = findViewById(R.id.editTextStateUpdate)
+
+        imageButtonEmail = findViewById(R.id.imageButtonEmail)
+        imageButtonSMS = findViewById(R.id.imageButtonSMS)
 
 //        testButton = findViewById(R.id.buttonTestUpdate)
 //        testTVUpdate = findViewById(R.id.textViewTestUpdate)
@@ -188,6 +201,7 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         zipETUpdate.setText(addList.get(0).getPostalCode())
         cityETUpdate.setText(addList.get(0).getLocality())
         stateETUpdate.setText(addList.get(0).getAdminArea())
+        currentAddress = "${(addList.get(0).getAddressLine(0))}"
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
@@ -279,4 +293,51 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
 
 
     }
+
+    fun onClickEmail(view: View) {
+        val intent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:") // only email apps should handle this
+           // putExtra(Intent.EXTRA_EMAIL, "test@123.com")
+            putExtra(Intent.EXTRA_SUBJECT, "Share My Dog ${DogName}'s Information ")
+            putExtra(Intent.EXTRA_TEXT, "Dog Information\n- Dog Age: ${currentAge} \n- Dog Gender: ${currentGender}\n- Dog Dimensions: Height:${currentHeight},Length:${currentLength},Weight:${currentWeight}\n- Dog Location: ${currentAddress} ")
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
+    }
+    fun onClickSMS(view: View) {
+        when {
+            ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED -> {
+                // permission is granted
+                Toast.makeText(this,getString(R.string.per_grant),Toast.LENGTH_SHORT).show()
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("smsto:")  // This ensures only SMS apps respond
+                    //putExtra("address", "5554")
+                    putExtra("sms_body", "Dog Information\n- Dog Age: ${currentAge} \n- Dog Gender: ${currentGender}\n- Dog Dimensions: Height:${currentHeight},Length:${currentLength},Weight:${currentWeight}\n- Dog Location: ${currentAddress} ")
+                }
+                startActivity(Intent.createChooser(intent,"SMS"))
+            }
+            ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.SEND_SMS)-> {
+                Toast.makeText(this,getString(R.string.per_not_grant),Toast.LENGTH_SHORT).show()
+                requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+            }
+            else-> {
+                Toast.makeText(this,getString(R.string.per_not_ask),Toast.LENGTH_SHORT).show()
+
+                // call function requestPermissionLauncher to ask permission again
+                requestPermissionLauncher.launch(Manifest.permission.SEND_SMS)
+            }
+        }
+    }
+    private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { result:Boolean ->
+        if (result) {
+            Toast.makeText(this,getString(R.string.per_grant), Toast.LENGTH_SHORT).show()
+        }
+        else{
+            Toast.makeText(this,getString(R.string.per_not_grant), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+
 }
