@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">INFO6134_Group7</string>
-    <string name="doggo">Doggo</string>
+    <string name="doggo" translatable="false">Doggo</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -11,6 +11,8 @@
     <string name="addpost">Add</string>
     <string name="editpost">Edit</string>
     <string name="removepost">Delete</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="reset">Reset password</string>
     <string name="signout">Sign out</string>
     <string name="List">Dog List</string>
     <string name="dogname">Name</string>
@@ -33,11 +35,11 @@
     <string name="service">Location Services not working</string>
     <string name="invalid_lat_long">Invalid Latitude and Longitude</string>
     <string name="no_address_found">No address found from that Lat/Lng</string>
-    <string name="per_grant">per_grant</string>
-    <string name="per_not_grant">per_not_grant</string>
-    <string name="per_not_ask">per_not_ask</string>
+    <string name="per_grant" translatable="false">per_grant</string>
+    <string name="per_not_grant" translatable="false">per_not_grant</string>
+    <string name="per_not_ask" translatable="false">per_not_ask</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
 
     <string-array name="ageArray">
         <item>Age</item>

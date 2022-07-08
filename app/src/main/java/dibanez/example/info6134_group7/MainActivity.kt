@@ -106,4 +106,11 @@ class MainActivity : AppCompatActivity() {
     }
 
 
+
+    fun onForgotClicked(view: View) {
+        val intent = Intent(this, ResetActivity:: class.java)
+        startActivity(intent)
+    }
+
+
 }

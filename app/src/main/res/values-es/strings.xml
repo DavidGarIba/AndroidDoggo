@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">INFO6134_Grupo7</string>
+    <string name="email">Correo Electronico</string>
+    <string name="password">Contraseña</string>
+    <string name="log_in">Ingresar ></string>
+    <string name="signup">Registrarse ></string>
+    <string name="newpost">Nueva Publicacion</string>
+    <string name="updatepost">Actualizar Publicacion</string>
+    <string name="addpost">Agregar</string>
+    <string name="editpost">Editar</string>
+    <string name="removepost">Borrar</string>
+    <string name="forgot">Olvidaste tu contraseña?</string>
+    <string name="reset">Reiniciar contraseña</string>
+    <string name="signout">Desconectar</string>
+    <string name="List">Lista de Perros</string>
+    <string name="dogname">Nombre</string>
+    <string name="doggender">Género</string>
+    <string name="addLocation">Agregar ubicación</string>
+    <string name="male">Macho</string>
+    <string name="female">Hembra</string>
+    <string name="dogage">Edad</string>
+    <string name="dogbreed">Raza</string>
+    <string name="dogheight">Altura</string>
+    <string name="doglength">Longitud</string>
+    <string name="dogweight">Peso</string>
+    <string name="dogdimensions">Dimensiones</string>
+    <string name="address">Dirección</string>
+    <string name="zip">Código Postal</string>
+    <string name="city">Ciudad</string>
+    <string name="state">Estado</string>
+    <string name="street">Calle</string>
+    <string name="back">Regresar</string>
+    <string name="service">Servicios de ubicacion sin funcionar</string>
+    <string name="invalid_lat_long">Latitud y longitud invalidas</string>
+    <string name="no_address_found">No se encontro dirección de Lat/Lon</string>
+    <string name="login">Ingresar</string>
+</resources>
