@@ -1,6 +1,7 @@
 package dibanez.example.info6134_group7
 
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
@@ -338,6 +339,13 @@ class UpdateActivity : AppCompatActivity(),OnItemSelectedListener  {
         }
     }
 
-
+    override fun onPause() {
+        var stringValue = "name:${DogName}, gender:${currentGender}, breed:${currentBreed}, age:${currentAge}, weight: ${currentWeight}, height:${currentHeight}, length:${currentLength}, street:${streetETUpdate.getText()}, zip: ${zipETUpdate.getText()}, city:${cityETUpdate.getText()}, state:${stateETUpdate.getText()} "
+        println(stringValue)
+        val prefsEditor = getSharedPreferences("SharedPref", Context.MODE_PRIVATE).edit()
+        prefsEditor.putString("sharedPref", stringValue.toString())
+        prefsEditor.apply()
+        super.onPause()
+    }
 
 }

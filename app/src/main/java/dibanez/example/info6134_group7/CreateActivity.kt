@@ -215,4 +215,5 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
 //        latLonTVCreate.text = SecondActivity.receiveDogName.toString() + " " + SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString() +  " " + SecondActivity.receiveDogWeight.toString() + " "  + SecondActivity.receiveDogAge.toString() + " " + SecondActivity.receiveDogGender.toString() + " " + SecondActivity.receiveDogDimensions.toString()
 
     }
+
 }

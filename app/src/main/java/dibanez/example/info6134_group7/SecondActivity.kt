@@ -1,6 +1,8 @@
 package dibanez.example.info6134_group7
 
+import android.content.Context
 import android.content.Intent
+import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -26,6 +28,9 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var recyclerAdapter: RecyclerAdapter
     lateinit var viewManager: RecyclerView.LayoutManager
+    var latRestore: Double = 0.0
+    var lonRestore: Double = 0.0
+
 
 
 
@@ -73,7 +78,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
 //        dogData.add(DataType("Dog2","3","female","10 cm",30.5245,-60.6709,false))
 //        dogData.add(DataType("Dog3","3","female","10 cm",20.5245,-50.5245,false))
         //println("test1" + dogData)
-
+        recoveryData()
     }
     fun readData(){
          dogData.clear()
@@ -192,10 +197,69 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
             Toast.makeText(baseContext, "Please Select Dog",
                 Toast.LENGTH_SHORT).show()
         }
-
-
     }
 
+    fun ConvertAddressToLatLon(street: String){
+        val geocode = Geocoder(this, Locale.getDefault())
+        val addList = geocode.getFromLocationName(street, 1)
+        latRestore = addList.get(0).latitude
+        lonRestore = addList.get(0).longitude
+    }
+
+    fun recoveryData(){
+      Firebase.database.reference.child("User/${MainActivity.userID}")
+            .orderByChild("check").equalTo(true)
+            .addListenerForSingleValueEvent(object : ValueEventListener  {
+                override fun onDataChange (dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.children.count() != 0) {
+                    println("Download Data from Firebase")
+                    val data = getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
+                    var stringData = data.getString("sharedPref", "")
+
+                    var name = ((stringData!!.substringAfter("name:")).substringBefore(","))
+                    var gender = ((stringData!!.substringAfter("gender:")).substringBefore(","))
+                    var breed = ((stringData!!.substringAfter("breed:")).substringBefore(","))
+                    var age = ((stringData!!.substringAfter("age:")).substringBefore(","))
+                    var weight = ((stringData!!.substringAfter("weight:")).substringBefore(","))
+                    var height = ((stringData!!.substringAfter("height:")).substringBefore(","))
+                    var length = ((stringData!!.substringAfter("length:")).substringBefore(","))
+                    var dimension = "Height:${height},\nLength:${length},\nWeight:${weight}"
+                    var street = ((stringData!!.substringAfter("street:")).substringBefore(","))
+
+                    ConvertAddressToLatLon(street)
+
+                    var dogObject: DataType = DataType(
+                        name,
+                        age,
+                        gender,
+                        breed,
+                        dimension,
+                        latRestore,
+                        lonRestore,
+                        check = false
+                    )
+
+                    Firebase.database.reference.child("User/${MainActivity.userID}/${name}")
+                        .setValue(dogObject)
+                        .addOnSuccessListener {
+                            readData()
+                        }
+                        .addOnFailureListener {
+                            Toast.makeText(
+                                baseContext, "Data restore failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                }
+            }
+
+                override fun onCancelled(error: DatabaseError) {
+                    print(error)
+                }
+
+
+            })
+    }
 
     override fun onResume() {
         super.onResume()
