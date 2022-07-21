@@ -18,6 +18,7 @@
     <string name="dogname">Name</string>
     <string name="doggender">Gender</string>
     <string name="addLocation">Add location</string>
+    <string name="createNotification">A new post has been created</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="dogage">Age</string>

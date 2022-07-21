@@ -35,4 +35,5 @@
     <string name="invalid_lat_long">Latitude et longitude invalides</string>
     <string name="no_address_found">Aucune adresse trouvée à partir de cette Lat/Lng</string>
     <string name="login">Connexion</string>
+    <string name="createNotification">Un nouveau poste a été créé</string>
 </resources>
