@@ -31,6 +31,8 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     //variables for data elements
     lateinit var nameETCreate: EditText
     lateinit var genderRGCreate: RadioGroup
+    lateinit var radioButtonMale: RadioButton
+    lateinit var radioButtonFemale : RadioButton
 
     lateinit var streetETCreate: EditText
     lateinit var zipETCreate: EditText
@@ -43,6 +45,19 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     lateinit var heightSpinCreate: Spinner
     lateinit var lengthSpinCreate: Spinner
     lateinit var weightSpinCreate: Spinner
+
+    var currentName:String = ""
+    var currentRadioValue: String = ""
+    var currentAge: String = ""
+    var currentBreed: String = ""
+    var currentWeight: String = ""
+    var currentHeight: String = ""
+    var currentLength: String = ""
+    var currentStreet: String = ""
+    var currentZip:String = ""
+    var currentCity:String = ""
+    var currentState:String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +73,9 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         //assign variables to corresponding views
         nameETCreate = findViewById(R.id.editTextNameCreate)
         genderRGCreate = findViewById(R.id.radioGroupGenderUpdate)
+
+        radioButtonMale = findViewById(R.id.radioButtonMaleUpdate)
+        radioButtonFemale = findViewById(R.id.radioButtonFemaleUpdate)
 
         streetETCreate = findViewById(R.id.editTextStreetCreate)
         zipETCreate = findViewById(R.id.editTextZipCreate)
@@ -116,6 +134,8 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         heightSpinCreate.onItemSelectedListener = this
         lengthSpinCreate.onItemSelectedListener = this
         weightSpinCreate.onItemSelectedListener = this
+
+        restoreData()
     }
 
     private val textWatcher = object : TextWatcher {
@@ -209,10 +229,12 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         when(view.id){
             R.id.radioButtonMaleUpdate-> {
                 SecondActivity.receiveDogGender = getString(R.string.male)
+                currentRadioValue = getString(R.string.male)
 //                Toast.makeText(this, SecondActivity.receiveDogGender,Toast.LENGTH_SHORT).show()
             }
             R.id.radioButtonFemaleUpdate-> {
                 SecondActivity.receiveDogGender = getString(R.string.female)
+                currentRadioValue = getString(R.string.female)
 //                Toast.makeText(this, SecondActivity.receiveDogGender,Toast.LENGTH_SHORT).show()
             }
         }
@@ -225,22 +247,30 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         } else {
             onGeocode()
             addData()
-            val intent = Intent(this, MainActivity::class.java)
-            val pendingIntent = TaskStackBuilder.create(this).run{
-                addNextIntentWithParentStack(intent)
-                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-            }
-            val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle(getString(R.string.doggo))
-                .setContentText(getString(R.string.createNotification))
-                .setSmallIcon(R.drawable.dogo_logo)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .build()
+            val intent = Intent(this,SecondActivity::class.java)
+            startActivity(intent)
 
-            val notificationManager = NotificationManagerCompat.from(this)
-            notificationManager.notify(NOTIFICATION_ID, notification)
-            finish()
+//            val intent = Intent(this, MainActivity::class.java)
+//            val pendingIntent = TaskStackBuilder.create(this).run{
+//                addNextIntentWithParentStack(intent)
+//                getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+//            }
+//            val notification = NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setContentTitle(getString(R.string.doggo))
+//                .setContentText(getString(R.string.createNotification))
+//                .setSmallIcon(R.drawable.dogo_logo)
+//                .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                .setContentIntent(pendingIntent)
+//                .build()
+//
+//            val notificationManager = NotificationManagerCompat.from(this)
+//            notificationManager.notify(NOTIFICATION_ID, notification)
+//            finish()
+
+           var flag = "true"
+           val prefsEditor = getSharedPreferences("SharedPref", Context.MODE_PRIVATE).edit()
+           prefsEditor.putString("flag", flag.toString())
+           prefsEditor.apply()
         }
 //        latLonTVCreate.text = SecondActivity.receiveDogName.toString() + " " + SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString() +  " " + SecondActivity.receiveDogWeight.toString() + " "  + SecondActivity.receiveDogAge.toString() + " " + SecondActivity.receiveDogGender.toString() + " " + SecondActivity.receiveDogDimensions.toString()
 
@@ -257,4 +287,114 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
         }
     }
 
+    fun restoreData(){
+        val data = getSharedPreferences("SharedPref", Context.MODE_PRIVATE)
+        var checkFlag = data.getString("flag", "")
+        if(checkFlag == "false")
+        {
+            var stringData = data.getString("sharedPrefCreate", "")
+            var name = ((stringData?.substringAfter("name:"))?.substringBefore(","))
+            var gender = ((stringData?.substringAfter("gender:"))?.substringBefore(","))
+            var breed = ((stringData?.substringAfter("breed:"))?.substringBefore(","))
+            var age = ((stringData?.substringAfter("age:"))?.substringBefore(","))
+            var weight = ((stringData?.substringAfter("weight:"))?.substringBefore(","))
+            weight = weight?.replace("\\s".toRegex(), "")
+            var height = ((stringData?.substringAfter("height:"))?.substringBefore(","))
+            height = height?.replace("\\s".toRegex(), "")
+            var length = ((stringData?.substringAfter("length:"))?.substringBefore(","))
+            length = length?.replace("\\s".toRegex(), "")
+            var street = ((stringData?.substringAfter("street:"))?.substringBefore(","))
+            var zip = ((stringData?.substringAfter("zip:"))?.substringBefore(","))
+            var city = ((stringData?.substringAfter("city:"))?.substringBefore(","))
+            var state = stringData?.substringAfter("state:")
+
+            SecondActivity.receiveDogName = name.toString()
+            SecondActivity.receiveDogAge = age.toString()
+            SecondActivity.receiveDogGender = gender.toString()
+            SecondActivity.receiveDogHeight = height.toString()
+            SecondActivity.receiveDogLength = length.toString()
+            SecondActivity.receiveDogWeight = weight.toString()
+            
+
+            nameETCreate.setText(name?:"")
+            streetETCreate.setText(street?:"")
+            zipETCreate.setText(zip?:"")
+            cityETCreate.setText(city?:"")
+            stateETCreate.setText(state?:"")
+
+             when(breed) {
+                        "Australian Shepard" -> breedSpinCreate.setSelection(1)
+                        "Beagle" -> breedSpinCreate.setSelection(2)
+                        "Corgi" -> breedSpinCreate.setSelection(3)
+                        "French Bulldog" -> breedSpinCreate.setSelection(4)
+                        "Golden Retriever" -> breedSpinCreate.setSelection(5)
+                        "Pomerian" -> breedSpinCreate.setSelection(6)
+                        "Shiba Inu" -> breedSpinCreate.setSelection(7)
+                        "" -> breedSpinCreate.setSelection(0)
+                    }
+        if(age == null || age == "Age" ){
+            ageSpinCreate.setSelection(0)
+        }else{
+            age
+            ageSpinCreate.setSelection((age).toInt())
+        }
+
+        if(weight == null || weight == "Weight"){
+            weightSpinCreate.setSelection(0)
+        }else {
+            weight = weight.substringBefore("kg")
+            weightSpinCreate.setSelection((weight).toInt())
+        }
+
+        if(height == null || height == "Height"){
+            heightSpinCreate.setSelection(0)
+        }else{
+            height = height.substringBefore("cm")
+            heightSpinCreate.setSelection((height).toInt())
+        }
+
+        if(length == null || length == "Length"){
+            lengthSpinCreate.setSelection(0)
+        }else{
+            length = length.substringBefore("cm")
+            lengthSpinCreate.setSelection((length).toInt())
+        }
+
+
+            if(gender == "Male"){
+                radioButtonMale.isChecked = true
+            }else{
+                radioButtonFemale.isChecked = true
+            }
+
+        }
+    }
+
+    override fun onPause() {
+         currentName = nameETCreate.getText().toString()
+         currentAge = ageSpinCreate.selectedItem.toString()
+         currentBreed = breedSpinCreate.selectedItem.toString()
+         currentWeight = weightSpinCreate.selectedItem.toString()
+         currentHeight = heightSpinCreate.selectedItem.toString()
+         currentLength = lengthSpinCreate.selectedItem.toString()
+         currentStreet = streetETCreate.getText().toString()
+         currentCity = cityETCreate.getText().toString()
+         currentState = stateETCreate.getText().toString()
+         currentZip = zipETCreate.getText().toString()
+
+        var stringValue = "name:${currentName}, gender:${currentRadioValue}, breed:${currentBreed}, age:${currentAge}, weight: ${currentWeight}, height:${currentHeight}, length:${currentLength}, street:${currentStreet}, zip: ${currentZip}, city:${currentCity}, state:${currentState} "
+        val prefsEditor = getSharedPreferences("SharedPref", Context.MODE_PRIVATE).edit()
+        prefsEditor.putString("sharedPrefCreate", stringValue.toString())
+        prefsEditor.apply()
+        super.onPause()
+    }
+
+
+    override fun onStop() {
+            val prefsEditor = getSharedPreferences("SharedPref", Context.MODE_PRIVATE).edit()
+            prefsEditor.putString("flag", "false")
+            prefsEditor.apply()
+            super.onStop()
+
+    }
 }

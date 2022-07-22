@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -136,7 +135,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
             receiveDogBreed,
             receiveDogDimensions,
             receiveLat,
-            receiveLon,check = false)
+            receiveLon, check = false)
         Firebase.database.reference.child("User/${MainActivity.userID}/${receiveDogName}").setValue(dogObject)
             .addOnSuccessListener {
               //  Toast.makeText(baseContext, "Data updated successfully.", Toast.LENGTH_SHORT).show()
@@ -242,7 +241,7 @@ class SecondActivity : AppCompatActivity(),CellClickListener {
                     Firebase.database.reference.child("User/${MainActivity.userID}/${name}")
                         .setValue(dogObject)
                         .addOnSuccessListener {
-                            readData()
+                           readData()
                         }
                         .addOnFailureListener {
                             Toast.makeText(

@@ -1,33 +1,34 @@
 {
   "project_info": {
-    "project_number": "49444694397",
-    "project_id": "androiddogo",
-    "storage_bucket": "androiddogo.appspot.com"
+    "project_number": "506512640983",
+    "firebase_url": "https://capstone-project-70e1d-default-rtdb.firebaseio.com",
+    "project_id": "capstone-project-70e1d",
+    "storage_bucket": "capstone-project-70e1d.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:49444694397:android:7675d62dbc232a6e3a4414",
+        "mobilesdk_app_id": "1:506512640983:android:7b0e20ff83a1e21c4a5992",
         "android_client_info": {
           "package_name": "dibanez.example.info6134_group7"
         }
       },
       "oauth_client": [
         {
-          "client_id": "49444694397-m1414a52mjuaqco15bot412g4t2qjn2v.apps.googleusercontent.com",
+          "client_id": "506512640983-mfc7jure2r0jsa4d3cao2q6757ppbefo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAoQ0f8M0kUAesh9xygoZNeSW2GWSjGbXM"
+          "current_key": "AIzaSyBAi4qi7ThOW-mF25AmPgvR7alAYqGVb3Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "49444694397-m1414a52mjuaqco15bot412g4t2qjn2v.apps.googleusercontent.com",
+              "client_id": "506512640983-mfc7jure2r0jsa4d3cao2q6757ppbefo.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
