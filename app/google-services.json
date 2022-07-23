@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "49444694397",
-    "project_id": "androiddogo",
-    "storage_bucket": "androiddogo.appspot.com"
+    "project_number": "490233869454",
+    "project_id": "androiddoggo",
+    "storage_bucket": "androiddoggo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:49444694397:android:7675d62dbc232a6e3a4414",
+        "mobilesdk_app_id": "1:490233869454:android:3ec1a8d8dd9abd84c685df",
         "android_client_info": {
           "package_name": "dibanez.example.info6134_group7"
         }
       },
       "oauth_client": [
         {
-          "client_id": "49444694397-m1414a52mjuaqco15bot412g4t2qjn2v.apps.googleusercontent.com",
+          "client_id": "490233869454-lfe501i85qj81vliflj2u2a81stont0h.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAoQ0f8M0kUAesh9xygoZNeSW2GWSjGbXM"
+          "current_key": "AIzaSyA_R9DKAramOXDRq6rlLqC__t2d-cp-lGs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "49444694397-m1414a52mjuaqco15bot412g4t2qjn2v.apps.googleusercontent.com",
+              "client_id": "490233869454-lfe501i85qj81vliflj2u2a81stont0h.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

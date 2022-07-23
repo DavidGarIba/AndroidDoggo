@@ -13,6 +13,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
@@ -47,7 +48,10 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create)
-        createNotificationChannel()
+//        createNotificationChannel()
+        val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+        val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        manager.createNotificationChannel(channel)
 
 
     }
@@ -173,6 +177,7 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
     fun onGeocode () {
+        Log.i("TEST", "inside onGeocode" )
 
             val addressCompiler = streetETCreate.text.toString() + ", " + cityETCreate.text.toString() + ", " + stateETCreate.text.toString() + ", " + zipETCreate.text.toString() + ", "
             val geocode = Geocoder(this, Locale.getDefault())
@@ -183,6 +188,7 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
     }
 
     fun addData(){
+        Log.i("TEST", "inside addData" )
         var dogObject: DataType = DataType(
             SecondActivity.receiveDogName,
             SecondActivity.receiveDogAge,
@@ -243,18 +249,5 @@ class CreateActivity : AppCompatActivity(), OnItemSelectedListener {
             finish()
         }
 //        latLonTVCreate.text = SecondActivity.receiveDogName.toString() + " " + SecondActivity.receiveLat.toString() + " " + SecondActivity.receiveLon.toString() +  " " + SecondActivity.receiveDogWeight.toString() + " "  + SecondActivity.receiveDogAge.toString() + " " + SecondActivity.receiveDogGender.toString() + " " + SecondActivity.receiveDogDimensions.toString()
-
     }
-
-    fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT).apply{
-                lightColor = R.color.orange_130
-                enableLights(true)
-            }
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-            manager.createNotificationChannel(channel)
-        }
-    }
-
 }
