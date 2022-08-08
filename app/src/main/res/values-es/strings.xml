@@ -26,7 +26,7 @@
     <string name="dogweight">Peso</string>
     <string name="dogdimensions">Dimensiones</string>
     <string name="address">Dirección</string>
-    <string name="zip">Código Postal</string>
+    <string name="zip">Postal</string>
     <string name="city">Ciudad</string>
     <string name="state">Estado</string>
     <string name="street">Calle</string>
@@ -36,4 +36,66 @@
     <string name="no_address_found">No se encontro dirección de Lat/Lon</string>
     <string name="login">Ingresar</string>
     <string name="createNotification">Una nueva publicacion ha sido creada</string>
+    <string-array name="ageArray">
+        <item>Edad</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+    <string-array name="breedArray">
+        <item>Raza</item>
+        <item>Australian Shepard</item>
+        <item>Beagle</item>
+        <item>Corgi</item>
+        <item>French Bulldog</item>
+        <item>Golden Retriever</item>
+        <item>Pomerian</item>
+        <item>Shiba Inu</item>
+    </string-array>
+    <string-array name="heightArray">
+        <item>Altura </item>
+        <item>1 cm</item>
+        <item>2 cm</item>
+        <item>3 cm</item>
+        <item>4 cm</item>
+        <item>5 cm</item>
+        <item>6 cm</item>
+        <item>7 cm</item>
+        <item>8 cm</item>
+        <item>9 cm</item>
+        <item>10 cm</item>
+    </string-array>
+    <string-array name="lengthArray">
+        <item>Largo</item>
+        <item>1 cm</item>
+        <item>2 cm</item>
+        <item>3 cm</item>
+        <item>4 cm</item>
+        <item>5 cm</item>
+        <item>6 cm</item>
+        <item>7 cm</item>
+        <item>8 cm</item>
+        <item>9 cm</item>
+        <item>10 cm</item>
+    </string-array>
+    <string-array name="weightArray">
+        <item>Peso</item>
+        <item>1 kg</item>
+        <item>2 kg</item>
+        <item>3 kg</item>
+        <item>4 kg</item>
+        <item>5 kg</item>
+        <item>6 kg</item>
+        <item>7 kg</item>
+        <item>8 kg</item>
+        <item>9 kg</item>
+        <item>10 kg</item>
+    </string-array>
 </resources>
